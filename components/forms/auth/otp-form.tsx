@@ -22,7 +22,7 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export function OTPForm({ ...props }: React.ComponentProps<typeof Card>) {
+export default function OTPForm({ ...props }: React.ComponentProps<typeof Card>) {
 
   const [otp, setOtp] = useState("");
   const router = useRouter();
