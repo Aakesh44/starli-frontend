@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function log(...args: any[]) {
+export function log(...args: Parameters<typeof console.log>) {
   if (process.env.NODE_ENV === 'development') {
     console.log(...args);
   }

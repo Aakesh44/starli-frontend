@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { poppins,jost, mono, plusJakartaSans, dancingScript, playfair} from "@/lib/fonts"
-// @ts-ignore: allow side-effect css import without type declarations
+// @ts-expext-error
 import "./globals.css";
 import Providers from "@/components/providers/providers";
 import Script from "next/script";
