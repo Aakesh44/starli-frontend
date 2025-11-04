@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import React, { Suspense } from 'react';
 
-const OTPForm = dynamic(() => import('@/components/forms/auth/otp-form'), {loading: () => <p>Loading...</p>, ssr: false});
+const OTPForm = dynamic(() => import('@/components/forms/auth/otp-form'), {loading: () => <p>Loading...</p>});
 
 const page = () => {
     return (
