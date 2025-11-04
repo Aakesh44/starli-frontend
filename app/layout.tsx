@@ -1,16 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { poppins,jost, mono, plusJakartaSans, dancingScript, playfair} from "@/lib/fonts"
+// @ts-ignore: allow side-effect css import without type declarations
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import Providers from "@/components/providers/providers";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,10 +17,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          src="https://accounts.google.com/gsi/client"
+          strategy="afterInteractive"
+        />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`bg-background text-foreground ${poppins.variable} ${jost.variable} ${mono.variable} ${plusJakartaSans.variable} ${dancingScript.variable} ${playfair.variable} antialiased`}
       >
-        {children}
+        <Providers>
+          
+          {children}
+
+        </Providers>
       </body>
     </html>
   );
