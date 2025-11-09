@@ -1,11 +1,17 @@
-import { ResetPasswordForm } from '@/components/forms/auth/reset-password-form';
-import React from 'react';
+import dynamic from 'next/dynamic';
+import React, { Suspense } from 'react';
+
+const ResetPasswordForm = dynamic(() => import('@/components/forms/auth/reset-password-form'), {
+    loading: () => <p>Loading...</p>,
+});
 
 const page = () => {
     return (
-        <main className='w-full grid place-items-center'>
-            <ResetPasswordForm className='w-5/6 md:w-90 flex flex-col gap-3'/>
-        </main>
+        <Suspense fallback={<p>Loading...</p>}>
+            <main className="grid w-full place-items-center">
+                <ResetPasswordForm className="flex w-5/6 flex-col gap-3 md:w-90" />
+            </main>
+        </Suspense>
     );
 };
 

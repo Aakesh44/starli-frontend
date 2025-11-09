@@ -5,9 +5,9 @@ import SignupButton from './signupButton';
 
 const AuthButtons = () => {
     return (
-        <div className='flex items-center justify-center gap-3'>
-            <LoginButton/>
-            <SignupButton/>
+        <div className="flex items-center justify-center gap-3">
+            <LoginButton />
+            <SignupButton />
         </div>
     );
 };

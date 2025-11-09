@@ -4,8 +4,8 @@ import React from 'react';
 
 const page = () => {
     return (
-        <main className='w-full grid place-items-center'>
-            <LoginForm className='w-5/6 md:w-90'/>
+        <main className="grid w-full place-items-center">
+            <LoginForm className="w-5/6 md:w-90" />
         </main>
     );
 };

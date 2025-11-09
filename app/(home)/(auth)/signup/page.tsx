@@ -1,11 +1,10 @@
-import { LoginForm } from '@/components/forms/auth/login-form';
 import { SignupForm } from '@/components/forms/auth/signup-form';
 import React from 'react';
 
 const page = () => {
     return (
-        <main className='w-full grid place-items-center'>
-            <SignupForm className='w-5/6 md:w-90'/>
+        <main className="grid w-full place-items-center">
+            <SignupForm className="w-5/6 sm:w-3/5 md:w-90" />
         </main>
     );
 };
