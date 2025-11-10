@@ -48,12 +48,18 @@ const sendOtp = async (token: string) => {
     return res.data;
 };
 
-const google = async (google_token: string) => {
-    const res = await api.post('/api/auth/google', { id_token: google_token });
+const google = async (google_token: string): Promise<{ user: IUser; accessToken: string, refreshToken: string }> => {
+
+    const res = await api.post('/api/auth/google', { idToken: google_token });
 
     log('google res', res);
 
-    return { user: res.data.user, token: res.data.token };
+    return {
+        user: res.data?.user,
+        accessToken: res.data?.access_token,
+        refreshToken: res.data?.refresh_token,
+    };
+
 };
 
 const validateEmailForPasswordReset = async (email: string) => {

@@ -21,13 +21,14 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
     const [password, setPassword] = useState('');
 
     const handleSignup = async (e: React.FormEvent) => {
+
         e.preventDefault();
 
         await signIn('credentials', {
             email: email,
             password,
             redirect: true,
-            callbackUrl: '/',
+            callbackUrl: '/scroll',
         });
     };
 

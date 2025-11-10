@@ -21,57 +21,64 @@ export default function OTPForm({ ...props }: React.ComponentProps<typeof Card>)
 
     const token = useSearchParams().get('token') as string | null;
 
+    const handleSignup = async (token: string) => {
+
+        try {
+            const { user, accessToken } = await authApi.verifyEmail(token, otp);
+            console.log('verifyEmail success', { user, accessToken });
+
+            setError('');
+
+            signIn('credentials', {
+                user: JSON.stringify(user),
+                accessToken,
+                refreshToken: accessToken,
+                redirect: true,
+                callbackUrl: '/scroll',
+            });
+
+        } catch (error: any) {
+            console.log('verifyEmail error', error);
+            setError(error?.response?.data?.message);
+        }
+    };
+
+    const handleForgotPassword = async (token: string) => {
+
+        try {
+            await authApi.verifyOtpForPasswordReset(token, otp);
+
+            setError('');
+
+            toast.success('Code verified successfully.');
+
+            router.push('/reset-password?token=' + token);
+
+        } catch (error) {
+            log('verifyOtpForPasswordReset error', error);
+            toast.error('Invalid code. Please try again.');
+            return;
+        }
+    };
+
     const handleVerify = async (e: React.FormEvent) => {
+
         e.preventDefault();
 
+        if (!token) {
+            router.back();
+            return;
+        }
         if (type === 'signup') {
-            if (!token) {
-                router.back();
-                return;
-            }
-
-            try {
-                const { user, accessToken } = await authApi.verifyEmail(token, otp);
-                console.log('verifyEmail success', { user, accessToken });
-
-                setError('');
-
-                signIn('credentials', {
-                    user: JSON.stringify(user),
-                    accessToken,
-                    refreshToken: accessToken,
-                    redirect: true,
-                    callbackUrl: '/',
-                });
-
-                // router.push("/login");
-            } catch (error: any) {
-                console.log('verifyEmail error', error);
-                setError(error?.response?.data?.message);
-            }
+            handleSignup(token);
         }
 
         if (type === 'forgot-password') {
-            if (!token) {
-                router.back();
-                return;
-            }
-
-            try {
-                await authApi.verifyOtpForPasswordReset(token, otp);
-
-                setError('');
-
-                toast.success('Code verified successfully.');
-
-                router.push('/reset-password?token=' + token);
-            } catch (error) {
-                log('verifyOtpForPasswordReset error', error);
-                toast.error('Invalid code. Please try again.');
-                return;
-            }
+            handleForgotPassword(token);
         }
     };
+
+
 
     const handleResend = async () => {
         if (!token) {

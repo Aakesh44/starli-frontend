@@ -1,12 +1,37 @@
 'use client';
-import React from 'react';
-import { signIn } from 'next-auth/react';
+import React, { useEffect } from 'react';
+import { signIn, useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
+import authApi from '@/lib/api/auth';
 
 const GoogleSignup = () => {
+
+    const { data: session, status } = useSession();
+
+    const signInWithGoogle = async () => {
+        await signIn('google', {
+            callbackUrl: '/scroll',
+        });
+    };
+
+    useEffect(() => {
+
+        if (status === 'authenticated' && (session as any).idToken) {
+
+            const idToken = (session as any).idToken;
+
+            authApi.google(idToken).then((res) => {
+                console.log('res', res);
+            }).catch((err) => {
+                console.log('err', err);
+            });
+        }
+
+    }, [session, status]);
+
     return (
         <Button
-            onClick={() => signIn('google')}
+            onClick={signInWithGoogle}
             variant="outline"
             type="button"
             className="ho rounded-full"

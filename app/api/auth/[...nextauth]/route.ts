@@ -11,6 +11,14 @@ export const authOptions: NextAuthOptions = {
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID!,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+            authorization: {
+                params: {
+                    prompt: "consent",
+                    access_type: "offline",
+                    response_type: "code",
+
+                }
+            }
         }),
 
         // 🟣 Credentials (Email + Password)
@@ -71,7 +79,9 @@ export const authOptions: NextAuthOptions = {
                     );
 
                     console.log('user', user);
+
                     return { ...user, accessToken: accessToken, refreshToken: refreshToken };
+
                 } catch (error: any) {
                     console.log('Authorization error', error);
 
@@ -103,6 +113,7 @@ export const authOptions: NextAuthOptions = {
     },
     callbacks: {
         async jwt({ token, user, account }) {
+
             if (user) {
                 token.user = user;
                 token.accessToken = user.accessToken;
@@ -111,10 +122,11 @@ export const authOptions: NextAuthOptions = {
 
             if (account?.provider === 'google') {
                 if (!account.id_token) return token;
-                const { user, token: userToken } = await authApi.google(account?.id_token);
+                const { user, accessToken, refreshToken } = await authApi.google(account?.id_token);
 
                 token.user = user as User;
-                token.accessToken = userToken as string;
+                token.accessToken = accessToken as string;
+                token.refreshToken = refreshToken as string;
             }
 
             return token;

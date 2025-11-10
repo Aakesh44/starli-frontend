@@ -9,6 +9,7 @@ import Link from "next/link";
 const SidebarFooter = ({ className }: { className?: string }) => {
 
     const session = useSession();
+
     const { user } = session.data || {};
 
     return (
@@ -20,13 +21,17 @@ const SidebarFooter = ({ className }: { className?: string }) => {
             <Link href={'/star'} className='flex items-center justify-center gap-2'>
 
                 <Avatar className="h-8 w-8 rounded-full overflow-hiddensm bg-primary">
-                    <AvatarImage src={'/icons/star.png'} alt={'profile'} />
+                    <AvatarImage
+                        src={user?.image || './icons/star.png'}
+                        alt={'profile'}
+                        className="size-full"
+                    />
                     <AvatarFallback className="rounded-full">•</AvatarFallback>
                 </Avatar>
 
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-medium hover:pl-0.5 transition-all">{'Aakesh'}</span>
-                    <span className="truncate text-xs hover:pl-0.5 transition-all">{'Aakesh@gmail.com'}</span>
+                <div className="group grid flex-1 text-left text-sm leading-tight">
+                    <span className="truncate font-medium group-hover:pl-0.5 transition-all">{user?.name}</span>
+                    <span className="truncate text-xs group-hover:pl-0.5 transition-all">{user?.email}</span>
                 </div>
 
             </Link>
