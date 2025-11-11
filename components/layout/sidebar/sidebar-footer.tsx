@@ -5,8 +5,9 @@ import ThemeToggle from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { ClassNameValue } from "tailwind-merge";
 
-const SidebarFooter = ({ className }: { className?: string }) => {
+const SidebarFooter = ({ sideBarOpen, className }: { sideBarOpen: boolean; className?: string }) => {
 
     const session = useSession();
 

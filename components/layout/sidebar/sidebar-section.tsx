@@ -7,18 +7,20 @@ import { ChevronDown } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 
 type SidebarSectionProps = {
+    sideBarOpen: boolean
     title?: string;
     items?: SidebarItemProps[];
 } & React.ComponentProps<'div'>;
+
 const SidebarSection = ({
     title,
     items,
+    sideBarOpen,
     className,
     children,
     ...props
 }: SidebarSectionProps & React.ComponentProps<'div'>) => {
 
-    const [open, setOpen] = useState(false);
 
     if (!children && !items?.length && !title) {
         return null;
@@ -39,7 +41,11 @@ const SidebarSection = ({
                 >
 
                     <CollapsibleTrigger
-                        className="group p-1 text-xs font-poppins font-medium flex items-center justify-between w-full text-left transition-all focus-visible:ring ring-ring/50"
+                        disabled={!sideBarOpen}
+                        className={cn(
+                            "group p-1 text-xs font-poppins font-medium flex items-center justify-between w-full text-left transition-all focus-visible:ring ring-ring/50",
+                            sideBarOpen === false ? 'invisible' : '', 'duration-[0ms]'
+                        )}
                     >
                         {title}
 
@@ -53,6 +59,7 @@ const SidebarSection = ({
                                 label={item.label}
                                 href={item.href}
                                 icon={item.icon}
+                                sideBarOpen={sideBarOpen}
                             />
                         ))}
                     </CollapsibleContent>
