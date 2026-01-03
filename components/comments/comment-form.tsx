@@ -21,7 +21,7 @@ const CommentForm = ({ className, ...props }: CommentFormProps) => {
     const [text, setText] = useState("");
 
     return (
-        <form className={cn('w-full min-h-9 h-fit p-2 flex items-start justify-start gap-2 rounded-lg border border-border/60 bg-slate-50 hover:bg-white', className)}>
+        <form className={cn('w-full min-h-9 h-fit p-2 flex items-start justify-start gap-2 rounded-lg border border-border/60 bg-slate-50 hover:bg-white focus-within:bg-white', className)}>
 
             <ProfileImageAvatar
                 src=''

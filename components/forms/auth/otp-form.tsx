@@ -8,7 +8,7 @@ import authApi from '@/lib/api/auth';
 import { log } from '@/lib/utils';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 export default function OTPForm({ ...props }: React.ComponentProps<typeof Card>) {
@@ -78,8 +78,6 @@ export default function OTPForm({ ...props }: React.ComponentProps<typeof Card>)
         }
     };
 
-
-
     const handleResend = async () => {
         if (!token) {
             router.back();
@@ -106,54 +104,56 @@ export default function OTPForm({ ...props }: React.ComponentProps<typeof Card>)
     if (isValid) return null;
 
     return (
-        <Card {...props}>
-            <CardHeader>
-                <CardTitle>Enter verification code</CardTitle>
-                <CardDescription>We sent a 6-digit code to your email.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <form onSubmit={handleVerify}>
-                    <FieldGroup>
-                        <Field>
-                            <FieldLabel htmlFor="otp">Verification code</FieldLabel>
-                            <InputOTP
-                                maxLength={6}
-                                id="otp"
-                                value={otp}
-                                onChange={(value) => setOtp(value)}
-                                required
-                            >
-                                <InputOTPGroup className="gap-2.5 *:data-[slot=input-otp-slot]:rounded-md *:data-[slot=input-otp-slot]:border">
-                                    <InputOTPSlot index={0} />
-                                    <InputOTPSlot index={1} />
-                                    <InputOTPSlot index={2} />
-                                    <InputOTPSlot index={3} />
-                                    <InputOTPSlot index={4} />
-                                    <InputOTPSlot index={5} />
-                                </InputOTPGroup>
-                            </InputOTP>
-                            <FieldDescription>
-                                Enter the 6-digit code sent to your email.
-                            </FieldDescription>
-                            <FieldError>{error}</FieldError>
-                        </Field>
+        <Suspense fallback={<p>Loading...</p>}>
+            <Card {...props}>
+                <CardHeader>
+                    <CardTitle>Enter verification code</CardTitle>
+                    <CardDescription>We sent a 6-digit code to your email.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <form onSubmit={handleVerify}>
                         <FieldGroup>
-                            <Button type="submit">Verify</Button>
-                            <FieldDescription className="text-center">
-                                Didn&apos;t receive the code?{' '}
-                                <Button
-                                    variant="link"
-                                    type="button"
-                                    className="text-foreground cursor-pointer px-0"
-                                    onClick={handleResend}
+                            <Field>
+                                <FieldLabel htmlFor="otp">Verification code</FieldLabel>
+                                <InputOTP
+                                    maxLength={6}
+                                    id="otp"
+                                    value={otp}
+                                    onChange={(value) => setOtp(value)}
+                                    required
                                 >
-                                    Resend
-                                </Button>
-                            </FieldDescription>
+                                    <InputOTPGroup className="gap-2.5 *:data-[slot=input-otp-slot]:rounded-md *:data-[slot=input-otp-slot]:border">
+                                        <InputOTPSlot index={0} />
+                                        <InputOTPSlot index={1} />
+                                        <InputOTPSlot index={2} />
+                                        <InputOTPSlot index={3} />
+                                        <InputOTPSlot index={4} />
+                                        <InputOTPSlot index={5} />
+                                    </InputOTPGroup>
+                                </InputOTP>
+                                <FieldDescription>
+                                    Enter the 6-digit code sent to your email.
+                                </FieldDescription>
+                                <FieldError>{error}</FieldError>
+                            </Field>
+                            <FieldGroup>
+                                <Button type="submit">Verify</Button>
+                                <FieldDescription className="text-center">
+                                    Didn&apos;t receive the code?{' '}
+                                    <Button
+                                        variant="link"
+                                        type="button"
+                                        className="text-foreground cursor-pointer px-0"
+                                        onClick={handleResend}
+                                    >
+                                        Resend
+                                    </Button>
+                                </FieldDescription>
+                            </FieldGroup>
                         </FieldGroup>
-                    </FieldGroup>
-                </form>
-            </CardContent>
-        </Card>
+                    </form>
+                </CardContent>
+            </Card>
+        </Suspense>
     );
 }

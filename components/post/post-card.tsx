@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
 interface PostCardProps {
-    mode: 'scroll' | 'single';
+    mode?: 'scroll' | 'single';
 };
 
 const PostCard = ({ mode = 'scroll' }: PostCardProps) => {

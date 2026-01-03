@@ -17,7 +17,7 @@ const SidebarLogo = ({ className, ...props }: Props) => {
     return (
         <div
             className={cn(
-                'flex h-10 bg-fuchsia-2000 shrink-0 w-full items-center justify-between gap-1.5 ',
+                'flex h-14 bg-fuchsia-2000 shrink-0 w-full items-center justify-between gap-1.5 ',
                 className
             )}
             {...props}

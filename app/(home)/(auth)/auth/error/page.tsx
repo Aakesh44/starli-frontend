@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect } from 'react';
 
-const AuthErrorPage = () => {
+const AuthErrorLogic = () => {
     const params = useSearchParams();
     const errorParam = params.get('error');
     const router = useRouter();
@@ -27,7 +27,15 @@ const AuthErrorPage = () => {
         }
     }, [errorParam, router]);
 
-    return <Suspense fallback={<p>Loading...</p>} />;
+    return <p>Loading...</p>;
+};
+
+const AuthErrorPage = () => {
+    return (
+        <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
+            <AuthErrorLogic />
+        </Suspense>
+    );
 };
 
 export default AuthErrorPage;
