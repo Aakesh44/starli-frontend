@@ -5,7 +5,7 @@ import { ProfileImageAvatar } from '../ui/avatar';
 
 const PostEngagements = () => {
     return (
-        <div className='w-full h-8 flex items-center justify-between'>
+        <div className='w-full h-fit md:h-8 flex flex-col md:flex-row items-start md:items-center justify-between'>
 
             <Link href={'#'} className='h-8 shrink-0 w-fit text-xs font-normal text-slate-500 hover:underline flex items-center justify-start gap-1 hover:gap-1.5 transition-[gap] duration-200 bg-lime-3000'>
 

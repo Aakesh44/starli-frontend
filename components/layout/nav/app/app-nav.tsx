@@ -6,10 +6,17 @@ import StreakIcon from './streak-icon';
 import UserNavIcon from './user-nav-icon';
 import LayoutChangeIcon from './layout-change-icon';
 import AppNavTitle from './app-nav-title';
+import { Button } from '@/components/ui/button';
+import { Menu } from 'lucide-react';
+import AppSidebarOpenIcon from '../../sidebar/app-sidebar-open-icon';
 
 const AppNav = () => {
+
+    // return null;
     return (
-        <nav className='sticky top-0 right-0 left-0 z-30 w-full h-14 shrink-0 flex items-center justify-start px-3 bg-primary dark:bg-background shadow-xs. shadow-[0_1px_1px_-1px_rgba(0,0,0,0.1)].'>
+        <nav className='sticky top-0 right-0 left-0 z-10 w-full h-14 shrink-0 flex items-center justify-start gap-2 px-3 bg-primary bg-amber-3000 dark:bg-background shadow-xs. shadow-[0_1px_1px_-1px_rgba(0,0,0,0.1)].'>
+
+            <AppSidebarOpenIcon />
 
             <AppNavTitle />
 

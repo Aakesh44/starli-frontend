@@ -11,15 +11,16 @@ interface PostContentInputProps {
     content: string;
     setContent: (content: string) => void;
     limit: number;
+    placeholder?: string;
     className?: string
 };
 
-const PostContentInput = ({ content, setContent, className, limit = 200 }: PostContentInputProps) => {
+const PostContentInput = ({ content, setContent, placeholder, className, limit = 200 }: PostContentInputProps) => {
     const editor = useEditor({
         extensions: [
             StarterKit,
             Placeholder.configure({
-                placeholder: 'What is happening?',
+                placeholder: placeholder || 'What is happening?',
             }),
             CharacterCount.configure({
                 limit,

@@ -15,7 +15,7 @@ const AppMainLayout = ({ children }: { children: React.ReactNode }) => {
             className={cn(
                 'grow min-h-fit h-full flex flex-col bg-green-3000',
                 'transition-[margin-left] ease-in-out duration-300',
-                !mounded ? 'ml-60' : isSidebarOpen ? 'ml-60' : 'ml-14'
+                !mounded ? 'md:ml-60' : isSidebarOpen ? 'md:ml-60' : 'md:ml-14'
             )}
         >
 

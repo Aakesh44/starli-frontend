@@ -15,7 +15,7 @@ import { SelectValue } from '@radix-ui/react-select';
 
 const SchedulePostForm = () => {
     return (
-        <div className='w-[400px] min-h-56 h-fit flex flex-col items-start justify-start font-sans'>
+        <div className='w-[90dvw] md:w-[400px] min-h-56 h-fit flex flex-col items-start justify-start font-sans'>
 
             <div className='w-full p-3 flex items-center justify-between border-b border-border/60'>
 

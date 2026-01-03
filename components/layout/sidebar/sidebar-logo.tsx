@@ -17,7 +17,7 @@ const SidebarLogo = ({ className, ...props }: Props) => {
     return (
         <div
             className={cn(
-                'flex h-14 bg-fuchsia-2000 shrink-0 w-full items-center justify-between gap-1.5 ',
+                'flex h-14 z-10 bg-fuchsia-2000 shrink-0 w-full items-center justify-between gap-1.5 ',
                 className
             )}
             {...props}
@@ -66,7 +66,7 @@ const SidebarLogo = ({ className, ...props }: Props) => {
 
                 <Button
                     variant="ghost" size="icon-sm"
-                    className={`p-1  text-primary-foreground hover:bg-background hover:text-primary-foreground border border-transparent hover:border-border/60 grid place-items-center ${isSidebarOpen ? 'block. hidden' : 'hidden'}`}
+                    className={`p-1 text-primary-foreground hover:bg-background hover:text-primary-foreground border border-transparent hover:border-border/60 grid place-items-center ${isSidebarOpen ? 'block md:hidden' : 'hidden'}`}
                     onClick={() => setSideBarOpen(false)}
                 >
                     <PanelLeftClose className={""} />

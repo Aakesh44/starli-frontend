@@ -16,8 +16,8 @@ const PostDraftListItem = ({ items }: PostDraftListItemProps) => {
         <div className='w-full h-14 shrink-0 font-sans flex items-center justify-start gap-2 bg-cyan-3000'>
 
             <div className='grow min-w-0 h-full p-0 flex flex-col items-start justify-center cursor-pointer hover:bg-secondary/80 bg-fuchsia-3000'>
-                <p className='font-semibold '>{items.title}</p>
-                <p className='min-w-0 w-full max-w-full truncate'>{items.description}</p>
+                <p className='w-full block font-semibold truncate'>{items.title + items.description}</p>
+                <p className='w-full truncate'>{items.description}</p>
             </div>
 
             <Button variant={"ghost"} size={"icon-xxs"} className={"text-destructive hover:text-destructive"}>

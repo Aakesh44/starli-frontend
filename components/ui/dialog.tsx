@@ -145,7 +145,7 @@ function SimpleDialog({
     <Dialog data-slot="dialog" {...props}>
       <DialogTrigger data-slot="dialog-trigger" asChild>{children}</DialogTrigger>
 
-      <DialogContent data-slot="dialog-content" className="p-0 w-fit h-fit top-[30%] sm:max-w-3xl overflow-hidden rounded-xl" showCloseButton={false}>
+      <DialogContent data-slot="dialog-content" className="p-0 h-fit top-[30%] w-fit sm:max-w-3xl overflow-hidden rounded-xl" showCloseButton={false}>
 
         <DialogHeader className="sr-only">
           <DialogTitle>{title}</DialogTitle>

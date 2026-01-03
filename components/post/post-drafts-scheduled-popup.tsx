@@ -14,11 +14,11 @@ const PostDraftsAndScheduledPopup = () => {
     const [activeTab, setActiveTab] = useState<typeof options[number]>('DRAFTS');
 
     return (
-        <div className="min-h-96 h-fit max-h-[50vh] md:min-w-[450px] w-[650px] p-3 font-sans flex flex-col gap-2 rounded-lg border shadow-md bg-white">
+        <div className="min-h-96 h-fit max-h-[50vh] md:min-w-[450px] w-[90dvw] md:w-[650px] p-3 font-sans flex flex-col gap-2 rounded-lg border shadow-md bg-white">
 
             <div className='w-full h-12 shrink-0 flex items-center justify-between gap-2 bg-fuchsia-3000'>
 
-                <div className='relative w-62 h-10 p-1 flex items-center justify-center gap-1 shrink-0 border border-border rounded-lg overflow-hidden bg-yellow-2000'>
+                <div className='relative w-3/4 md:w-62 h-10 p-1 flex items-center justify-center gap-1 shrink-0 border border-border rounded-lg overflow-hidden bg-yellow-2000'>
 
                     {options.map((option, ind) => {
                         return (
@@ -40,8 +40,6 @@ const PostDraftsAndScheduledPopup = () => {
                             transform: `translateX(${activeTab === "SCHEDULED" ? '100%' : '0%'})`,
                         }}
                     >
-                        {/* <div className='w-full h-full bg-secondary rounded-md'>
-                        </div> */}
                     </div>
 
                 </div>
@@ -62,8 +60,6 @@ const PostDraftsAndScheduledPopup = () => {
 
                 <PostScheduledList />
             )}
-
-
 
         </div>
     );

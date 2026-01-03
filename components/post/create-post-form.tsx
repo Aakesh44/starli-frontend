@@ -21,7 +21,7 @@ const CreatePostForm = ({ closePopup }: { closePopup: () => void }) => {
     const [text, setText] = useState("");
 
     return (
-        <div className="min-h-96 h-fit max-h-[50vh] md:min-w-[450px] w-[650px] p-3 font-sans flex flex-col rounded-lg border shadow-md bg-white">
+        <div className="min-h-96 h-fit max-h-[50vh] md:min-w-[450px] w-[90dvw] md:w-[650px] p-3 font-sans flex flex-col rounded-lg border shadow-md bg-white">
 
             <div className='w-full h-12 shrink-0 flex items-center justify-between gap-2 bg-fuchsia-3000'>
 
@@ -76,6 +76,7 @@ const CreatePostForm = ({ closePopup }: { closePopup: () => void }) => {
                     content={text}
                     setContent={setText}
                     limit={MAX_DESCRIPTION_LENGTH}
+                    placeholder='What are you thinking on?'
                 />
 
             </form>

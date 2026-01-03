@@ -42,9 +42,11 @@ const SidebarWrapper = ({ className, ...props }: Props) => {
 
     return (
         <aside className={cn(
-            "fixed top-0 border-border flex w-full h-full max-h-screen px-3 pb-3 shrink-0 flex-col gap-2 items-center justify-start overflow-hidden",
-            isOpen ? 'w-60 max-w-60' : 'max-w-14 pr-3',
-            'transition-all bg-fuchsia-6000',
+            "fixed top-0 z-50 border-border flex h-full max-h-screen px-3 pb-3 shrink-0 flex-col gap-2 items-center justify-start overflow-hidden",
+            isOpen ? 'bg-white' : '-translate-x-full md:translate-x-0',
+            isOpen ? 'bg-white w-60 max-w-60' : ' w-14 max-w-14 pr-3',
+            '',
+            'transition-all bg-white shadow',
         )}
             {...props}
         />
