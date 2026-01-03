@@ -1,14 +1,28 @@
+import AppNav from '@/components/layout/nav/app/app-nav';
 import Sidebar from '@/components/layout/sidebar/sidebar';
 import React from 'react';
+import AppMainLayout from './appMainLayout';
+import AppLayoutWrapper from './appLayout';
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
+
     return (
-        <main className="flex h-screen w-full p-2 items-center justify-start gap-2.5 bg-[#FAFAFA] dark:bg-background">
+        <AppLayoutWrapper>
 
             <Sidebar />
 
-            <aside className="h-full grow rounded-lg bg-background dark:bg-secondary/40 drop-shadow-sm shadow-foreground p-2.5">{children}</aside>
-        </main>
+            <AppMainLayout>
+
+                <AppNav />
+
+                <div className='w-full grow pt-3 pb-3 flex flex-col'>
+                    {children}
+                </div>
+
+            </AppMainLayout>
+
+        </AppLayoutWrapper>
+
     );
 };
 

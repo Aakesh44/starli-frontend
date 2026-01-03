@@ -52,7 +52,7 @@ function TooltipContent({
         {...props}
       >
         {children}
-        <TooltipPrimitive.Arrow className="bg-foreground fill-foreground z-50 size-2.5 translate-y-[calc(-50%_-_2px)] rotate-45 rounded-[2px]" />
+        <TooltipPrimitive.Arrow className="bg-foreground fill-foreground z-40 size-2.5 translate-y-[calc(-50%_-_2px)] rotate-45 rounded-[2px]" />
       </TooltipPrimitive.Content>
     </TooltipPrimitive.Portal>
   )
@@ -61,15 +61,22 @@ function TooltipContent({
 function SimpleTooltip({
   children,
   content,
+  hidden,
   ...props
 }: {
   children: React.ReactNode;
   content: React.ReactNode;
+  hidden?: boolean
 } & React.ComponentProps<typeof TooltipTrigger>) {
   return (
     <Tooltip>
       <TooltipTrigger asChild {...props}>{children}</TooltipTrigger>
-      <TooltipContent className="">{content}</TooltipContent>
+      <TooltipContent
+        className="p-1 px-1.5"
+        hidden={hidden}
+      >
+        {content}
+      </TooltipContent>
     </Tooltip>
   )
 }

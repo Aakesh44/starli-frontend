@@ -1,47 +1,77 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, SimpleDropDownMenu } from "@/components/ui/dropdown-menu";
 import ThemeToggle from "@/components/ui/theme-toggle";
+import { SimpleTooltip } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import { ChevronsUpDown, Command } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { ClassNameValue } from "tailwind-merge";
+import UserMenu from "./user-menu";
+import { useSidebarStore } from "@/stores/useSidebarStore";
 
-const SidebarFooter = ({ sideBarOpen, className }: { sideBarOpen: boolean; className?: string }) => {
+const SidebarFooter = ({ className }: { className?: string }) => {
 
+    const isSidebarOpen = useSidebarStore((state) => state.isOpen);
     const session = useSession();
 
     const { user } = session.data || {};
 
     return (
-
         <div
-            //   size="lg"
-            className={cn("shrink-0 w-full flex items-center justify-between gap-2 px-2 py-2 pb-4 data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground", className)}
+            className={cn(
+                'group font-poppins bg-lime-2000 flex h-8 w-full shrink-0 items-center justify-start gap-2 rounded-md cursor-pointer text-secondary-foreground text-sm border border-transparent transition-transform overflow-hidden.',
+                'hover:bg-background hover:text-primary-foreground hover:shadow-2xs. hover:border-border/60',
+                isSidebarOpen ? 'aspect-square' : 'w-full',
+                className
+            )}
+
         >
-            <Link href={'/star'} className='flex items-center justify-center gap-2'>
 
-                <Avatar className="h-8 w-8 rounded-full overflow-hiddensm bg-primary">
-                    <AvatarImage
-                        src={user?.image || './icons/star.png'}
-                        alt={'profile'}
-                        className="size-full"
-                    />
-                    <AvatarFallback className="rounded-full">•</AvatarFallback>
-                </Avatar>
+            {/* <DropdownMenu>
+                <DropdownMenuTrigger>{'open'}</DropdownMenuTrigger>
+                <DropdownMenuContent>
+                    Hello
+                </DropdownMenuContent>
+            </DropdownMenu> */}
 
-                <div className="group grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-medium group-hover:pl-0.5 transition-all">{user?.name}</span>
-                    <span className="truncate text-xs group-hover:pl-0.5 transition-all">{user?.email}</span>
-                </div>
+            <SimpleTooltip content={user?.name ?? 'Guest'} hidden={isSidebarOpen}>
 
-            </Link>
+                <SimpleDropDownMenu
+                    menuContent={<UserMenu />}
+                    menuContentClassName={`-mb-8 ${isSidebarOpen ? '' : 'ml-3'}`}
+                    className="flex h-full w-full items-center justify-start gap-1.5 group-hover:gap-2 transition-all duration-200 focus-visible:ring-ring/50 focus-visible:ring-[2px] rounded-md overflow-hidden"
+                >
+                    <div>
 
-            <ThemeToggle />
+                        <span className="px-1. bg-rose-4000 h-full aspect-square grid place-items-center group-hover:scale-[1.01].">
+                            <Avatar className="size-5 rounded-full overflow-hiddensm">
+                                <AvatarImage
+                                    src={user?.image || './icons/star.png'}
+                                    alt={'profile'}
+                                    className="size-full"
 
+                                />
+                                <AvatarFallback className="rounded-full">
+                                    <div className="size-full rounded-full grid place-items-center font-poppins text-xl font-semibold border border-input">{user?.name?.at(0)?.toUpperCase()}</div>
+                                </AvatarFallback>
+                            </Avatar>
+                        </span>
+
+                        <p className={cn('font-medium truncate', isSidebarOpen === false ? 'hidden' : '')}>{user?.name ?? 'Guest'}</p>
+
+                        <ChevronsUpDown className='ml-auto mr-1 size-4 text-foreground/60 group-data-[state=open]:rotate-180 transition-all cursor-pointer' />
+
+                    </div>
+
+                </SimpleDropDownMenu>
+
+
+            </SimpleTooltip>
         </div>
+    )
 
-        // </div>
-    );
-};
-export default SidebarFooter;
+}
+
+export default SidebarFooter

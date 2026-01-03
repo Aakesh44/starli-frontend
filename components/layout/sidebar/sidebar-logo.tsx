@@ -1,46 +1,50 @@
 import { Button } from '@/components/ui/button';
+import { SimpleTooltip } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
-import { PanelLeftClose } from 'lucide-react';
+import { useSidebarStore } from '@/stores/useSidebarStore';
+import { PanelLeftClose, Star } from 'lucide-react';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 type Props = {
-    sideBarOpen: boolean;
-    setSideBarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 } & React.ComponentProps<'div'>;
 
-const SidebarLogo = ({ sideBarOpen, setSideBarOpen, className, ...props }: Props) => {
+const SidebarLogo = ({ className, ...props }: Props) => {
+
+    const isSidebarOpen = useSidebarStore((state) => state.isOpen);
+    const setSideBarOpen = useSidebarStore((state) => state.setIsOpen);
 
     return (
         <div
             className={cn(
-                'flex h-fit shrink-0 w-full items-center justify-between px-2 py-2 pr-1',
+                'flex h-10 bg-fuchsia-2000 shrink-0 w-full items-center justify-between gap-1.5 ',
                 className
             )}
             {...props}
         >
-            <div className='group'>
+            <div className='group size-8 shrink-0 grid place-items-center'>
 
                 <Link
                     href={'/'}
                     className={cn(
                         "font-poppins flex w-fit items-center text-2xl font-bold",
-                        'transition-[display] duration-500',
-                        sideBarOpen ? '' : 'group-hover:hidden'
+                        'rotate-0 transition-[display] duration-500',
+                        isSidebarOpen ? '' : ' group-hover:hidden'
                     )}
                 >
-                    🌠{' '}
+                    <Star />
                 </Link>
+
 
                 <Button
                     variant="ghost" size="icon-sm"
                     className={cn(
-                        "p-1 place-items-center hidden",
-                        sideBarOpen ? '' : 'group-hover:grid'
+                        "p-1 text-primary-foreground hover:bg-background hover:text-primary-foreground  border border-transparent hover:border-border/60 place-items-center hidden hover:shadow-none",
+                        isSidebarOpen ? '' : 'group-hover:grid'
                     )}
-                    onClick={() => setSideBarOpen(prev => !prev)}
+                    onClick={() => { setSideBarOpen(true); console.log('click'); }}
                 >
-                    <PanelLeftClose strokeWidth={2} className={`text-foreground/80 ${sideBarOpen ? '-rotate-180' : ''} duration-200 transition-transform`} />
+                    <PanelLeftClose className={""} />
                 </Button>
 
             </div>
@@ -48,19 +52,27 @@ const SidebarLogo = ({ sideBarOpen, setSideBarOpen, className, ...props }: Props
             <Link
                 href={'/'}
                 className={cn(
-                    "mr-auto font-poppins flex w-fit items-center text-2xl font-bold",
-                    !sideBarOpen ? 'hidden' : '',
+                    "mr-auto font-poppins flex w-fit items-center",
+                    !isSidebarOpen ? 'hidden' : '',
                     'transition-[display] duration-500'
                 )}
             >
-                <h1 className="bg-gradient-to-tl from-yellow-600 to-orange-600 bg-clip-text text-2xl text-transparent">
-                    Starli
+                <h1 className="text-xl font-poppins font-semibold text-primary-foreground">
+                    STARLI
                 </h1>
             </Link>
 
-            <Button variant="ghost" size="icon-sm" className="p-1" onClick={() => setSideBarOpen(prev => !prev)}>
-                <PanelLeftClose strokeWidth={2} className={`text-foreground/80 ${!sideBarOpen ? 'hidden' : ''} duration-200 transition-transform`} />
-            </Button>
+            <SimpleTooltip content={"Ctrl + \\"}>
+
+                <Button
+                    variant="ghost" size="icon-sm"
+                    className={`p-1  text-primary-foreground hover:bg-background hover:text-primary-foreground border border-transparent hover:border-border/60 grid place-items-center ${isSidebarOpen ? 'block. hidden' : 'hidden'}`}
+                    onClick={() => setSideBarOpen(false)}
+                >
+                    <PanelLeftClose className={""} />
+                </Button>
+
+            </SimpleTooltip>
         </div>
     );
 };

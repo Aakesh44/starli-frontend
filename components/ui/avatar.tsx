@@ -4,6 +4,7 @@ import * as React from "react"
 import * as AvatarPrimitive from "@radix-ui/react-avatar"
 
 import { cn } from "@/lib/utils"
+import sampleImg from "../../public/images/sample2.jpg"
 
 function Avatar({
   className,
@@ -48,6 +49,41 @@ function AvatarFallback({
       {...props}
     />
   )
+}
+
+export function ProfileImageAvatar({
+  src,
+  alt,
+  fallback,
+  className,
+  ...props
+
+}: {
+  src: string,
+  alt: string,
+  fallback?: string
+} & React.ComponentProps<typeof AvatarPrimitive.Root>
+) {
+
+  return (
+
+    <Avatar className={cn("size-7 shrink-0 rounded-full border border-border/60 overflow-hiddensm", className)} {...props}>
+      <AvatarImage
+        src={src || sampleImg?.src || ''}
+        alt={alt || 'profile'}
+        className="size-full"
+
+      />
+      <AvatarFallback className="rounded-full">
+        <div className="size-full rounded-full grid place-items-center font-poppins text-xl font-semibold border border-input">
+          {
+            fallback ? fallback : alt
+          }
+        </div>
+      </AvatarFallback>
+    </Avatar>
+  )
+
 }
 
 export { Avatar, AvatarImage, AvatarFallback }

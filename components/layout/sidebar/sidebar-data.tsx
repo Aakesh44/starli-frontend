@@ -1,8 +1,9 @@
-import { Atom, Bookmark, BookOpenCheck, CircleFadingPlus, Flame, GraduationCap, Heart, MessageCircleMore, PencilLine, Search, Zap } from 'lucide-react';
+import { Atom, Bookmark, BookOpenCheck, CircleFadingPlus, Flame, GraduationCap, Heart, MessageCircleMore, NotebookPen, PencilLine, Search, Zap } from 'lucide-react';
 
 export const SIDEBAR_MENU = [
     {
         title: "Menu",
+        theme: "text-amber-400",
         items: [
             {
                 label: 'Scroll',
@@ -28,6 +29,7 @@ export const SIDEBAR_MENU = [
     },
     {
         title: 'Cources',
+        theme: "text-rose-400",
         items: [
             {
                 label: 'Cources',
@@ -48,31 +50,38 @@ export const SIDEBAR_MENU = [
     },
     {
         title: 'Network',
+        theme: "text-cyan-400",
         items: [
             {
-                label: 'Planets',
-                href: '/planets',
+                label: 'Spaces',
+                href: '/spaces',
                 icon: <Atom strokeWidth={2} className="size-4" />
             },
             {
-                label: 'New Planet',
-                href: '/new-planet',
+                label: 'New Space',
+                href: '/new-space',
                 icon: <CircleFadingPlus strokeWidth={2} className="size-4" />
             }
         ]
     },
     {
         title: 'Collections',
+        theme: "text-lime-400",
         items: [
+            {
+                label: 'Liked Posts',
+                href: '/liked-posts',
+                icon: <Heart strokeWidth={2} className="size-4" />
+            },
             {
                 label: 'Book Marks',
                 href: '/bookmarks',
                 icon: <Bookmark strokeWidth={2} className="size-4" />
             },
             {
-                label: 'Liked Posts',
-                href: '/liked-posts',
-                icon: <Heart strokeWidth={2} className="size-4" />
+                label: 'Notes',
+                href: '/notes',
+                icon: <NotebookPen strokeWidth={2} className="size-4" />
             }
         ]
     }

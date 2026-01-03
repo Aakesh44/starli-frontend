@@ -1,60 +1,56 @@
 "use client";
 
 import { Sparkles } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { } from 'react';
 import SidebarFooter from './sidebar-footer';
 import SidebarLogo from './sidebar-logo';
 import SidebarContainer from './sidebar-container';
 import SidebarSection from './sidebar-section';
 import SidebarItem from './sidebar-item';
-import SidebarDivider from './sidebar-devider';
 import { SIDEBAR_MENU } from './sidebar-data';
-import { cn } from '@/lib/utils';
+import CommandMenuIcon from './command-menu-icon';
+import SidebarWrapper from './sidebar-wrapper';
 
 const Sidebar = () => {
 
-    const [openSidebar, setOpenSidebar] = useState(true);
-
     return (
-        <aside className={cn(
-            "border-border flex h-full shrink-0 flex-col gap-1 items-center justify-start border-r. overflow-hidden",
-            openSidebar ? 'w-50 2xl:w-56' : 'w-12.5',
-            'transition-all',
-            'bg-teal-300.'
-        )}>
+        <SidebarWrapper>
 
-            <SidebarLogo sideBarOpen={openSidebar} setSideBarOpen={setOpenSidebar} />
-
-            <SidebarDivider />
+            <SidebarLogo />
 
             <SidebarContainer>
 
-                <SidebarSection className='py-2' sideBarOpen={openSidebar}>
+                <SidebarSection className='py-2'>
+
                     <SidebarItem
-                        label="For you"
+                        label="Home"
+                        href='/home'
                         icon={<Sparkles strokeWidth={2} className="size-4" />}
-                        sideBarOpen={openSidebar}
                     />
                 </SidebarSection>
 
-                {SIDEBAR_MENU.map(({ title, items }) => {
+                {SIDEBAR_MENU?.map(({ title, items, theme }) => {
                     return (
                         <SidebarSection
                             key={title}
                             title={title}
                             items={items}
-                            sideBarOpen={openSidebar}
+                            theme={theme}
                         />
                     )
                 })}
 
             </SidebarContainer>
 
-            <SidebarDivider className="mt-auto w-full" />
+            <div className='mt-auto w-full space-y-2'>
 
-            <SidebarFooter sideBarOpen={openSidebar} />
+                <CommandMenuIcon />
 
-        </aside>
+                <SidebarFooter />
+            </div>
+
+
+        </SidebarWrapper>
     );
 };
 

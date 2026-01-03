@@ -22,6 +22,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
                 <GoogleOneTap />
 
                 <Toaster position="bottom-center" gutter={5} />
+
             </SessionProvider>
         </>
     );

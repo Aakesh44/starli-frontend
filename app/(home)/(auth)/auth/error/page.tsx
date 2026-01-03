@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 
 const AuthErrorPage = () => {
     const params = useSearchParams();
@@ -18,7 +18,7 @@ const AuthErrorPage = () => {
         try {
             errorData = JSON.parse(errorParam || '');
             console.log('errorData', errorData);
-        } catch (error) {}
+        } catch (error) { }
 
         if (errorData.code === 'NOT_VERIFIED') {
             router.push('/email-verify?token=' + errorData.token + '&type=signup');
@@ -27,7 +27,7 @@ const AuthErrorPage = () => {
         }
     }, [errorParam, router]);
 
-    return null;
+    return <Suspense fallback={<p>Loading...</p>} />;
 };
 
 export default AuthErrorPage;
