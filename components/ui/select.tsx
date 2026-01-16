@@ -186,11 +186,12 @@ function SimpleSelect({
   className,
   ...props
 }: {
-  selectContent: React.ReactNode
-} & React.ComponentProps<typeof SelectTrigger>) {
+  selectContent: React.ReactNode,
+  className?: string,
+} & React.ComponentProps<typeof Select>) {
   return (
-    <Select>
-      <SelectTrigger asChild className={cn("p-0 w-full", className)}>
+    <Select {...props}>
+      <SelectTrigger asChild className={cn("p-0 w-full border-0 select-none", className)}>
         {children}
       </SelectTrigger>
       <SelectContent className="max-h-40 top-12">

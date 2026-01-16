@@ -21,8 +21,11 @@ const GoogleOneTap = () => {
                 });
 
                 window.google.accounts.id.prompt();
-            }
+            };
+
         };
+
+        initializeGoogleOneTap();
     }, []);
     return null;
 };

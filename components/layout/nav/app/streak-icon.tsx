@@ -7,7 +7,7 @@ const StreakIcon = () => {
     return (
         <SimpleTooltip content={"Streak"}>
 
-            <Button variant={"ghost"} size={"icon-sm"} className='group hover:bg-red-50.'>
+            <Button variant={"ghost"} size={"icon-sm"} className='hidden md:block group hover:bg-red-50.'>
                 <Rocket className='size-5 group-hover:scale-[0.95] group-hover:text-red-500' />
             </Button>
         </SimpleTooltip>

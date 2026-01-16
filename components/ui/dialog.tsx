@@ -131,35 +131,55 @@ function DialogDescription({
   )
 }
 
-function SimpleDialog({
+function SimpleDialogRoot({
   children,
-  dialogContent,
-  title = "Dialog",
   ...props
 }: {
-  children: React.ReactNode,
-  dialogContent: React.ReactNode,
-  title?: string
 } & React.ComponentProps<typeof DialogPrimitive.Root>) {
   return (
-    <Dialog data-slot="dialog" {...props}>
-      <DialogTrigger data-slot="dialog-trigger" asChild>{children}</DialogTrigger>
-
-      <DialogContent data-slot="dialog-content" className="p-0 h-fit top-[30%] w-fit sm:max-w-3xl overflow-hidden rounded-xl" showCloseButton={false}>
-
-        <DialogHeader className="sr-only">
-          <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>
-            <slot name="dialog-description" />
-          </DialogDescription>
-        </DialogHeader>
-
-        {dialogContent}
-
-      </DialogContent>
-    </Dialog>
+    <Dialog data-slot="dialog" {...props}>{children}</Dialog>
   )
 };
+
+function SimpleDialogTrigger({
+  children,
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Trigger>) {
+  return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} asChild>{children}</DialogPrimitive.Trigger>
+}
+
+function SimpleDialogContent({
+  children,
+  title = 'Dialog',
+}: {
+  children: React.ReactNode,
+  title?: string
+}) {
+  return (
+
+    <DialogContent
+      data-slot="dialog-content"
+      className="p-0 h-fit top-[30%] w-fit sm:max-w-3xl overflow-hidden rounded-xl"
+      showCloseButton={false}
+    >
+
+      <DialogHeader className="sr-only">
+        <DialogTitle>{title}</DialogTitle>
+        <DialogDescription>
+          <slot name="dialog-description" />
+        </DialogDescription>
+      </DialogHeader>
+
+      {children}
+
+    </DialogContent>
+  )
+}
+
+const SimpleDialog = Object.assign(SimpleDialogRoot, {
+  Trigger: SimpleDialogTrigger,
+  Content: SimpleDialogContent
+});
 
 export {
   Dialog,

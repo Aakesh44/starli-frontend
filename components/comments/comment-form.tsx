@@ -4,7 +4,7 @@ import { ProfileImageAvatar } from '../ui/avatar';
 import { Button } from '../ui/button';
 import { ArrowUp, ImagePlus, Smile, X } from 'lucide-react';
 import { Input } from '../ui/input';
-import PostContentInput from '../post/post-form-content-input';
+import PostContentInput from '../post/create-post/post-form-content-input';
 import Image from 'next/image';
 import sampleImage from '../../public/images/sample2.jpg'
 import { cn } from '@/lib/utils';

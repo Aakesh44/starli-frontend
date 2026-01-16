@@ -3,6 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage, ProfileImageAvatar } from '@/compo
 import { Button } from '@/components/ui/button';
 import { SimpleTooltip } from '@/components/ui/tooltip';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import React from 'react';
 
 const UserNavIcon = () => {
@@ -13,11 +14,18 @@ const UserNavIcon = () => {
     return (
         <SimpleTooltip content={"Profile"} >
 
-            <Button variant={"ghost"} size={"icon-sm"} className='rounded-full p-0 w-fit h-fit grid place-items-center'>
-
+            <Link
+                href={'/aakesh'}
+                className='rounded-full p-0 w-fit h-fit grid place-items-center'
+            >
                 <ProfileImageAvatar src={user?.image || './icons/star.png'} alt={user?.name || ''} fallback={user?.name || ''} />
+            </Link>
 
-            </Button>
+            {/* <Button variant={"ghost"} size={"icon-sm"} className='rounded-full p-0 w-fit h-fit grid place-items-center'>
+
+
+            </Button> */}
+
         </SimpleTooltip>
     );
 };

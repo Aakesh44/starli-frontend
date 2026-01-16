@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
-import authApi from '@/lib/api/auth';
+import authApi from '@/lib/api/auth-api';
 
 const GoogleSignup = () => {
 

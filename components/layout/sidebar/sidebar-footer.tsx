@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage, ProfileImageAvatar } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, SimpleDropDownMenu } from "@/components/ui/dropdown-menu";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import { SimpleTooltip } from "@/components/ui/tooltip";
@@ -46,7 +46,14 @@ const SidebarFooter = ({ className }: { className?: string }) => {
                     <div>
 
                         <span className="px-1. bg-rose-4000 h-full aspect-square grid place-items-center group-hover:scale-[1.01].">
-                            <Avatar className="size-5 rounded-full overflow-hiddensm">
+
+                            <ProfileImageAvatar
+                                src={user?.image || './icons/star.png'}
+                                alt={user?.name || ''}
+                                className="size-5 border-0"
+                            />
+
+                            {/* <Avatar className="size-5 rounded-full overflow-hiddensm">
                                 <AvatarImage
                                     src={user?.image || './icons/star.png'}
                                     alt={'profile'}
@@ -56,7 +63,7 @@ const SidebarFooter = ({ className }: { className?: string }) => {
                                 <AvatarFallback className="rounded-full">
                                     <div className="size-full rounded-full grid place-items-center font-poppins text-xl font-semibold border border-input">{user?.name?.at(0)?.toUpperCase()}</div>
                                 </AvatarFallback>
-                            </Avatar>
+                            </Avatar> */}
                         </span>
 
                         <p className={cn('font-medium truncate', isSidebarOpen === false ? 'hidden' : '')}>{user?.name ?? 'Guest'}</p>

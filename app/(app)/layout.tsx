@@ -15,7 +15,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
 
                 <AppNav />
 
-                <div className='w-full grow pt-3 pb-3 flex flex-col'>
+                <div className='w-full grow p-3 flex flex-col0'>
                     {children}
                 </div>
 

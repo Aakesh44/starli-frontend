@@ -71,7 +71,7 @@ export function ProfileImageAvatar({
       <AvatarImage
         src={src || sampleImg?.src || ''}
         alt={alt || 'profile'}
-        className="size-full"
+        className="size-full object-cover"
 
       />
       <AvatarFallback className="rounded-full">

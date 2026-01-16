@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import authApi from '@/lib/api/auth';
+import authApi from '@/lib/api/auth-api';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 

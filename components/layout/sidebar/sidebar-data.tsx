@@ -1,4 +1,4 @@
-import { Atom, Bookmark, BookOpenCheck, CircleFadingPlus, Flame, GraduationCap, Heart, MessageCircleMore, NotebookPen, PencilLine, Search, Zap } from 'lucide-react';
+import { Atom, Bookmark, BookOpenCheck, CalendarClock, CheckSquare, CircleFadingPlus, Flame, GraduationCap, Heart, MessageCircleMore, NotebookPen, PencilLine, Search, Target, Zap } from 'lucide-react';
 
 export const SIDEBAR_MENU = [
     {
@@ -65,6 +65,27 @@ export const SIDEBAR_MENU = [
         ]
     },
     {
+        title: 'Planner',
+        theme: "text-indigo-400",
+        items: [
+            {
+                label: 'Todo List',
+                href: '/todos',
+                icon: <CheckSquare strokeWidth={2} className="size-4" />
+            },
+            {
+                label: 'Assignments', // Specifically for the LMS side
+                href: '/assignments',
+                icon: <CalendarClock strokeWidth={2} className="size-4" />
+            },
+            {
+                label: 'Daily Goals',
+                href: '/goals',
+                icon: <Target strokeWidth={2} className="size-4" />
+            }
+        ]
+    },
+    {
         title: 'Collections',
         theme: "text-lime-400",
         items: [
@@ -74,7 +95,7 @@ export const SIDEBAR_MENU = [
                 icon: <Heart strokeWidth={2} className="size-4" />
             },
             {
-                label: 'Book Marks',
+                label: 'Bookmarks',
                 href: '/bookmarks',
                 icon: <Bookmark strokeWidth={2} className="size-4" />
             },

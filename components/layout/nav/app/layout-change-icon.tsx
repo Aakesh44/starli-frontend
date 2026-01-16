@@ -10,16 +10,17 @@ const LayoutChangeIcon = () => {
     const { toggleFixedSize: toggle } = useAppLayoutStore();
 
     return (
-        <SimpleTooltip content={"Toggle Layout"}>
+        <SimpleTooltip content={"Toggle Layout"} className='hidden lg:block'>
 
             <Button
                 onClick={toggle}
                 variant={"ghost"}
                 size={"icon-sm"}
-                className='group hover:bg-red-50.'
+                className='hidden xl:grid group hover:bg-red-50. place-items-center'
             >
-                <GalleryHorizontal className='size-5 group-hover:scale-[0.95] group-hover:text-red-500' />
+                <GalleryHorizontal className='size-5  group-hover:scale-[0.95] group-hover:text-blue-500' />
             </Button>
+
         </SimpleTooltip>
     );
 };

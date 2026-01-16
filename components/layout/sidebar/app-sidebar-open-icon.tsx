@@ -12,6 +12,7 @@ const AppSidebarOpenIcon = () => {
             variant={"ghost"}
             size={"icon-sm"}
             onClick={() => setOpenSidebar(true)}
+            className='md:hidden'
         >
             <Menu className='size-5' />
         </Button>

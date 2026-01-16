@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage, ProfileImageAvatar } from '@/components/ui/avatar';
 import { useSession } from 'next-auth/react';
 import React from 'react';
 import { MoonStarIcon, Monitor, SunMedium } from 'lucide-react';
@@ -15,17 +15,11 @@ const UserMenu = () => {
 
             <div className='w-full h-16 flex items-center justify-start gap-3 px-3 bg-secondary rounded-b-lg border-b border-border overflow-hidden'>
 
-                <Avatar className="size-6 rounded-full shrink-0 overflow-hidden">
-                    <AvatarImage
-                        src={user?.image || './icons/star.png'}
-                        alt={'profile'}
-                        className="size-full"
-
-                    />
-                    <AvatarFallback className="rounded-full">
-                        <div className="size-full rounded-full grid place-items-center font-poppins text-xl font-semibold border border-input">{user?.name?.at(0)?.toUpperCase()}</div>
-                    </AvatarFallback>
-                </Avatar>
+                <ProfileImageAvatar
+                    src={user?.image || './icons/star.png'}
+                    alt={'profile'}
+                    className='size-6 border-0'
+                />
 
                 <div className='h-fit grow min-w-0 flex flex-col bg-yellow-3000'>
                     <p className='text-base font-pt-serif text-foreground w-full truncate'>{user?.name || 'Aakesh V M'}</p>
@@ -36,10 +30,12 @@ const UserMenu = () => {
 
             <DropdownMenuGroup className='py-2'>
 
-                <DropdownMenuItem className=' cursor-pointer w-full flex group hover:gap-2.5 hover:text-foreground transition-all duration-200'>
-                    <CircleUserRound className='group-hover:text-foreground size-4' />
-                    Profile
-                </DropdownMenuItem>
+                <Link href={'/aakesh'}>
+                    <DropdownMenuItem className=' cursor-pointer w-full flex group hover:gap-2.5 hover:text-foreground transition-all duration-200'>
+                        <CircleUserRound className='group-hover:text-foreground size-4' />
+                        Profile
+                    </DropdownMenuItem>
+                </Link>
 
             </DropdownMenuGroup>
 
@@ -91,6 +87,8 @@ import {
 import { CircleUserRound, LogOut, Palette, UserRound } from 'lucide-react';
 import { Toggle } from '@/components/ui/toggle';
 import ThemeToggle from '@/components/ui/theme-toggle';
+import Link from 'next/link';
+import Header from '@/components/layout/nav/home/header';
 
 export function DropdownMenuDemo() {
     return (

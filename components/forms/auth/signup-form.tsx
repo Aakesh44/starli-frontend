@@ -14,9 +14,9 @@ import {
 import { Input } from '@/components/ui/input';
 import GoogleSignup from './google-signin';
 import { useState, useTransition } from 'react';
-import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import authApi from '../../../lib/api/auth';
+import authApi from '../../../lib/api/auth-api';
+import { toast } from 'sonner';
 
 export function SignupForm({ className, ...props }: React.ComponentProps<'div'>) {
     const [email, setEmail] = useState('');

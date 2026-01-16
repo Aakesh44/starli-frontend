@@ -1,4 +1,4 @@
-import CreatePostFormPreview from '@/components/post/create-post-form-preview';
+import CreatePostFormPreview from '@/components/post/create-post/create-post-form-preview';
 import ScrollList from '@/components/scroll/scroll-list';
 import React from 'react';
 

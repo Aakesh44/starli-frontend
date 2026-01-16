@@ -220,4 +220,18 @@ function CalendarDayButton({
   )
 }
 
+function DateCalendar({
+  ...props
+}: React.ComponentProps<typeof DayPicker>) {
+
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  return (
+    <Calendar
+      {...(isOpen ? {} : { mode: "single" })}
+      {...props}
+    />
+  )
+}
+
 export { Calendar, CalendarDayButton }

@@ -2,7 +2,7 @@
 import CommentForm from '@/components/comments/comment-form';
 import CommentList from '@/components/comments/comment-list';
 import LikeList from '@/components/likes/like-list';
-import PostCard from '@/components/post/post-card';
+import PostCard from '@/components/post//post-card/post-card';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import React, { useState } from 'react';

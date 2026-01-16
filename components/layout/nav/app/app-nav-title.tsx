@@ -7,7 +7,7 @@ const AppNavTitle = () => {
     const pathName = usePathname()?.split('/')[1] || 'Home';
 
     return (
-        <h1 className='font-poppins flex w-fit items-center text-2xl font-semibold'>
+        <h1 className='font-poppins flex min-w-40 lg:min-w-44 w-fit items-center text-2xl font-semibold'>
             {capitalize(pathName)}
         </h1>
     );

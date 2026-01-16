@@ -1,5 +1,5 @@
 'use client';
-import authApi from '@/lib/api/auth';
+import authApi from '@/lib/api/auth-api';
 import React from 'react';
 
 const LogoutButton = () => {

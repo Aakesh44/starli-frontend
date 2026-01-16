@@ -1,11 +1,13 @@
 "use client";
+
 import React, { useState } from 'react';
 import { Button } from '../ui/button';
 import { DialogClose } from '../ui/dialog';
 import { X } from 'lucide-react';
-import PostDraftsList from './post-drafts-list';
-import PostScheduledList from './post-scheduled-list';
+import PostDraftsList from './draft/post-drafts-list';
+import PostScheduledList from './scheduled/post-scheduled-list';
 import { cn } from '@/lib/utils';
+import { useDraftsAndScheduledPosts } from '@/hooks/posts/useDraftsAndScheduledPosts';
 
 const options = ["DRAFTS", "SCHEDULED"] as const;
 
@@ -13,10 +15,15 @@ const PostDraftsAndScheduledPopup = () => {
 
     const [activeTab, setActiveTab] = useState<typeof options[number]>('DRAFTS');
 
-    return (
-        <div className="min-h-96 h-fit max-h-[50vh] md:min-w-[450px] w-[90dvw] md:w-[650px] p-3 font-sans flex flex-col gap-2 rounded-lg border shadow-md bg-white">
+    const { data, isLoading, isError } = useDraftsAndScheduledPosts();
 
-            <div className='w-full h-12 shrink-0 flex items-center justify-between gap-2 bg-fuchsia-3000'>
+    const drafts = data?.drafts || [];
+    const scheduled = data?.scheduled || [];
+
+    return (
+        <div className="min-h-96 h-fit max-h-[50vh] md:min-w-[450px] w-[90dvw] md:w-[650px] font-sans flex flex-col rounded-lg border. shadow-md bg-white">
+
+            <div className='w-full h-15 p-3 pb-0 shrink-0 flex items-center justify-between gap-2 bg-fuchsia-3000'>
 
                 <div className='relative w-3/4 md:w-62 h-10 p-1 flex items-center justify-center gap-1 shrink-0 border border-border rounded-lg overflow-hidden bg-yellow-2000'>
 
@@ -28,7 +35,8 @@ const PostDraftsAndScheduledPopup = () => {
                                 onClick={() => setActiveTab(option)}
                                 className={cn('z-20 bg-white. w-1/2 h-full text-secondary-foreground hover:text-primary-foreground', option === activeTab && 'text-primary-foreground')}
                             >
-                                {option} • 2
+                                {option} • {" "}
+                                {option === "DRAFTS" ? drafts.length : scheduled.length}
                             </Button>
                         )
                     })}
@@ -55,10 +63,10 @@ const PostDraftsAndScheduledPopup = () => {
 
             {activeTab === "DRAFTS" ? (
 
-                <PostDraftsList />
+                <PostDraftsList posts={drafts} loading={isLoading} />
             ) : (
 
-                <PostScheduledList />
+                <PostScheduledList posts={scheduled} loading={isLoading} />
             )}
 
         </div>
