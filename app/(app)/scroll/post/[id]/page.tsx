@@ -5,6 +5,7 @@ import LikeList from '@/components/likes/like-list';
 import PostCard from '@/components/post//post-card/post-card';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { Post } from '@/types/post';
 import React, { useState } from 'react';
 
 const options = ["COMMENTS", "UPVOTES"] as const;
@@ -16,7 +17,7 @@ const page = () => {
     return (
         <div className='w-full h-full flex flex-col items-start justify-start overflow-y-auto scrollbar-thin'>
 
-            <PostCard mode='single' />
+            <PostCard mode='single' post={{} as Post} />
 
             <div className='w-full p-5'>
 

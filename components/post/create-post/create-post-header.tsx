@@ -107,7 +107,7 @@ const CreatePostHeader = ({
             <Button
                 onClick={onCreatePost}
                 variant={"default"}
-                className='px-6 h-8 border-border/60'
+                className='px-6 h-8 '
             >
                 {loading ? <LoaderCircle /> : 'Post'}
             </Button>

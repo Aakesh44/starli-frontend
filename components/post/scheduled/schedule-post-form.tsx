@@ -164,7 +164,7 @@ const SchedulePostForm = ({
                 <Button
                     onClick={onSchedulePost}
                     variant={"default"}
-                    className='px-6 h-8 border-border/60'>
+                    className='px-6 h-8'>
                     Save
                 </Button>
             </div>

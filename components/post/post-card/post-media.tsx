@@ -66,7 +66,7 @@ const MediaLayout = ({
     return (
         <div
             className={cn(
-                'w-full aspect-square grid gap-0.5 rounded-xl overflow-hidden',
+                'w-full md:w-3/4 xl:w-full aspect-square grid gap-0.5 rounded-xl overflow-hidden',
                 mediaGridConfig[mediaLength],
 
             )}
@@ -85,6 +85,7 @@ type MediaItemProps = {
 const MediaItem = ({
     src, isOverlay, overlayText
 }: MediaItemProps) => {
+
     return (
         <div className='relative w-full h-full overflow-hidden'>
             <Image
@@ -93,7 +94,7 @@ const MediaItem = ({
                 fill
                 quality={80}
                 className='object-cover border'
-                sizes="(max-width: 768px) 100vw, 50vw"
+            // sizes="(max-width: 78px) 10vw, 10vw"
             />
 
             {isOverlay && (

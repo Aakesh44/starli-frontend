@@ -1,11 +1,11 @@
-import ProfileEditPage from '@/components/profile/profile-edit-page';
+import ProfileEditForm from '@/components/profile/profile-edit-form';
 import React from 'react';
 
 const Page = () => {
     return (
-        <section className='w-full lg:w-5xl h-full mx-auto border border-border/60 bg-white rounded-lg p-5 flex flex-col overflow-y-auto scrollbar-thin'>
+        <section className='container w-full xl:w-5xl h-full mx-auto border border-border/60 bg-white rounded-lg p-5 flex flex-col overflow-y-auto scrollbar-thin'>
 
-            <ProfileEditPage />
+            <ProfileEditForm />
 
         </section>
     );

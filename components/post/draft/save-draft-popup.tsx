@@ -36,7 +36,7 @@ const SaveDraftPopup = ({
                 <Button onClick={onDiscardDraft} variant={"default"} className='px-6 h-8 border-destructive bg-white text-destructive'>
                     Discard
                 </Button>
-                <Button onClick={onSaveDraft} variant={"default"} className='px-6 h-8 border-border/60'>
+                <Button onClick={onSaveDraft} variant={"default"} className='px-6 h-8'>
                     Save Draft
                 </Button>
             </div>
