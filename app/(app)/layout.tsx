@@ -2,7 +2,7 @@ import AppNav from '@/components/layout/nav/app/app-nav';
 import Sidebar from '@/components/layout/sidebar/sidebar';
 import React from 'react';
 import AppMainLayout from './appMainLayout';
-import AppLayoutWrapper from './appLayout';
+import AppLayoutWrapper from './appLayoutWrapper';
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
 

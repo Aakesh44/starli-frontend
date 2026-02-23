@@ -1,3 +1,4 @@
+import { ISOString } from "./common";
 import { User } from "./user";
 
 export type Post = {
@@ -14,7 +15,7 @@ export type Post = {
     }
     status: 'PUBLISHED' | 'DRAFT' | 'SCHEDULED';
     isReshare: boolean;
-    createdAt: string;
-    updatedAt: string;
-    scheduledAt: string;
+    createdAt: ISOString;
+    updatedAt: ISOString;
+    scheduledAt: ISOString;
 }

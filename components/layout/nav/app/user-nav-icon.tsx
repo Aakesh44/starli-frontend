@@ -11,11 +11,13 @@ const UserNavIcon = () => {
     const session = useSession();
     const { user } = session.data || {};
 
+    console.log('user', user);
+
     return (
         <SimpleTooltip content={"Profile"} >
 
             <Link
-                href={'/aakesh'}
+                href={user?.username ?? '/user'}
                 className='rounded-full p-0 w-fit h-fit grid place-items-center'
             >
                 <ProfileImageAvatar src={user?.image || './icons/star.png'} alt={user?.name || ''} fallback={user?.name || ''} />

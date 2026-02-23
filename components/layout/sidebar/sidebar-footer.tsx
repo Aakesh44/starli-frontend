@@ -50,20 +50,8 @@ const SidebarFooter = ({ className }: { className?: string }) => {
                             <ProfileImageAvatar
                                 src={user?.image || './icons/star.png'}
                                 alt={user?.name || ''}
-                                className="size-5 border-0"
+                                className="size-6 border-0"
                             />
-
-                            {/* <Avatar className="size-5 rounded-full overflow-hiddensm">
-                                <AvatarImage
-                                    src={user?.image || './icons/star.png'}
-                                    alt={'profile'}
-                                    className="size-full"
-
-                                />
-                                <AvatarFallback className="rounded-full">
-                                    <div className="size-full rounded-full grid place-items-center font-poppins text-xl font-semibold border border-input">{user?.name?.at(0)?.toUpperCase()}</div>
-                                </AvatarFallback>
-                            </Avatar> */}
                         </span>
 
                         <p className={cn('font-medium truncate', isSidebarOpen === false ? 'hidden' : '')}>{user?.name ?? 'Guest'}</p>

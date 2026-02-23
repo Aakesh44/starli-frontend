@@ -17,6 +17,7 @@ import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -77,6 +78,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="Atleast 8 characters"
+                                    autoComplete='new-password'
                                     required
                                     className="rounded-full"
                                 />

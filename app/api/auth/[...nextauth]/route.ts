@@ -1,9 +1,10 @@
 import api from '@/lib/api';
-import NextAuth, { NextAuthOptions, User } from 'next-auth';
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { IUser } from '@/types/user';
 import authApi from '@/lib/api/auth-api';
+import { toast } from 'sonner';
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -83,7 +84,10 @@ export const authOptions: NextAuthOptions = {
                     return { ...user, accessToken: accessToken, refreshToken: refreshToken };
 
                 } catch (error: any) {
+
                     console.log('Authorization error', error);
+
+                    toast.error(error?.response?.data?.message);
 
                     const { code, token } = error?.response?.data;
 
@@ -98,7 +102,7 @@ export const authOptions: NextAuthOptions = {
 
                     throw new Error(
                         JSON.stringify({
-                            code: 'AUTH_ERROR',
+                            code: code || 'AUTH_ERROR',
                             message: error?.response?.data?.message || 'Authorization failed',
                         })
                     );
@@ -112,7 +116,7 @@ export const authOptions: NextAuthOptions = {
         error: '/auth/error',
     },
     callbacks: {
-        async jwt({ token, user, account }) {
+        async jwt({ token, user, account, trigger, session }) {
 
             if (user) {
                 token.user = user;
@@ -120,11 +124,19 @@ export const authOptions: NextAuthOptions = {
                 token.refreshToken = user.refreshToken;
             }
 
+            if (trigger === 'update' && session?.user) {
+                token.user = {
+                    ...token.user,
+                    ...session.user
+                }
+            }
+
             if (account?.provider === 'google') {
                 if (!account.id_token) return token;
+                console.log('🟢🔥 account', account);
                 const { user, accessToken, refreshToken } = await authApi.google(account?.id_token);
 
-                token.user = user as User;
+                token.user = user!;
                 token.accessToken = accessToken as string;
                 token.refreshToken = refreshToken as string;
             }
@@ -132,7 +144,7 @@ export const authOptions: NextAuthOptions = {
             return token;
         },
         async session({ session, token }) {
-            session.user = token.user as User;
+            session.user = token.user!;
             session.accessToken = token.accessToken as string;
             session.refreshToken = token.refreshToken as string;
             return session;

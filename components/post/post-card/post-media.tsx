@@ -66,7 +66,7 @@ const MediaLayout = ({
     return (
         <div
             className={cn(
-                'w-full md:w-3/4 xl:w-full aspect-square grid gap-0.5 rounded-xl overflow-hidden',
+                'w-full md:w-full xl:w-full aspect-square grid gap-0.5 rounded-xl overflow-hidden',
                 mediaGridConfig[mediaLength],
 
             )}

@@ -1,17 +1,21 @@
 import { cn } from '@/lib/utils';
 import React from 'react';
+import FormErrorMessage from '../../ui/form-error-message';
 
 type Props = {
     label: string,
     description: string,
     children: React.ReactNode
     id?: string,
+    error?: string
     className?: string
 };
 const ProfileEditFormRow = ({
     label, description, id, children, className
 }: Props) => {
+
     return (
+
         <div
             className={cn('w-full min-h-fit h-fit md:h-12 grid grid-cols-2 md:grid-cols-5 md:grid-rows-1  gap-3 bg-pink-2000', className)}
         >
@@ -21,9 +25,11 @@ const ProfileEditFormRow = ({
                 <p>{description}</p>
             </div>
 
-            <div className='col-span-3 h-full grid place-items-center'>
+            <div className='col-span-3 h-full grid place-items-center gap-1 bg-lime-3000'>
 
                 {children}
+
+                <FormErrorMessage error='' />
 
             </div>
 

@@ -13,13 +13,17 @@ const AppMainLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <main
             className={cn(
-                'w-screen md:w-auto grow min-h-fit h-full flex flex-col bg-green-3000',
+                'w-screen md:w-auto grow min-h-fit h-full p-2 pl-1 bg-green-3000',
                 'transition-[margin-left] ease-in-out duration-300',
                 !mounded ? 'md:ml-60' : isSidebarOpen ? 'md:ml-60' : 'md:ml-14'
             )}
         >
+            <div className='w-full min-h-fit h-full flex flex-col bg-primary drop-shadow rounded-md'>
 
-            {children}
+                {children}
+
+            </div>
+
 
         </main>
     );

@@ -1,4 +1,4 @@
-import ProfileEditForm from '@/components/profile/profile-edit-form';
+import ProfileEditForm from '@/components/profile/edit/profile-edit-form';
 import React from 'react';
 
 const Page = () => {

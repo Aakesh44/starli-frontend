@@ -13,21 +13,30 @@ import { PopoverContent } from '@radix-ui/react-popover';
 import { Command } from 'cmdk';
 import { CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from './command';
 
-const MAX_SKILLS = 10;
-const ChipInput = () => {
+type ChipInputProps = {
+    values: string[];
+    onChange: (values: string[]) => void
+    max?: number;
+};
 
-    const [skills, setSkills] = useState<string[]>([]);
-    const [openSelect, setOpenSelect] = useState(false);
+const ChipInput = ({
+    values, onChange, max
+}: ChipInputProps) => {
 
-    const handleAddSkill = (skill: string) => {
+    const handleAddValue = (val: string) => {
 
-        if (skills.length >= MAX_SKILLS) return;
+        if (max && values.length >= max) return;
 
-        setSkills(p => p.includes(skill) ? p : [...p, skill]);
+        onChange(
+            values.includes(val) ? values : [...values, val]
+        )
 
-    }
-    const handleRemoveSkill = (skill: string) => {
-        setSkills(p => p.filter(s => s !== skill));
+    };
+
+    const handleRemoveValue = (val: string) => {
+        onChange(
+            values.filter(value => value !== val)
+        )
     };
 
     return (
@@ -40,16 +49,16 @@ const ChipInput = () => {
                     <div
                         className={cn('h-fit w-full flex items-start justify-start flex-wrap gap-2 bg-amber-5000')}
                     >
-                        {[...skills].map((skill, index) => {
+                        {[...values].map((val, index) => {
                             return (
-                                <div key={skill} className={cn(buttonVariants({ variant: 'primary', size: "icon-xxs" }), 'group shrink-0 w-fit min-w-fit p-1 px-2.5 flex items-center justify-start gap-1.5 ')}>
-                                    <Image src={skillIcon} alt='skill' width={16} height={16} className={''} />
-                                    <p className='text-xs font-medium'>{skill}</p>
+                                <div key={`${val}-${index}`} className={cn(buttonVariants({ variant: 'primary', size: "icon-xxs" }), 'group shrink-0 w-fit min-w-fit p-1 px-2.5 flex items-center justify-start gap-1.5 ')}>
+                                    <Image src={skillIcon} alt='icon' width={16} height={16} className={''} />
+                                    <p className='text-xs font-medium'>{val}</p>
                                     <Button
                                         size={"icon-xxs"}
                                         onClick={(e) => {
                                             e.stopPropagation();
-                                            handleRemoveSkill(skill)
+                                            handleRemoveValue(val)
                                         }}
                                         onPointerDown={(e) => {
                                             e.preventDefault();
@@ -70,7 +79,7 @@ const ChipInput = () => {
 
             <PopoverContent className='w-96 mt-2 z-50 bg-white shadow rounded-lg'>
                 <Command className='w-full z-50'>
-                    <CommandInput placeholder="Search for a skill..." />
+                    <CommandInput placeholder="Search for a value..." />
                     <CommandList className='py-2'>
                         <CommandEmpty>No results found.</CommandEmpty>
                         {[...Array(10)].map((_, index) => (
@@ -78,12 +87,11 @@ const ChipInput = () => {
                                 key={index}
                                 value={'Javascript ' + index.toString()}
                                 onSelect={(currentValue) => {
-                                    handleAddSkill(currentValue);
-                                    setOpenSelect(false);
+                                    handleAddValue(currentValue);
                                 }}
                                 className='py-3'
                             >
-                                <Image src={skillIcon} alt='skill' width={16} height={16} className={''} />
+                                <Image src={skillIcon} alt='icon' width={16} height={16} className={''} />
                                 <p className='text-xs font-medium'>{'Javascript ' + index}</p>
                             </CommandItem>
                         ))}

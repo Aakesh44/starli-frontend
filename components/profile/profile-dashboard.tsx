@@ -1,15 +1,19 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState, useTransition } from 'react';
 import { ProfileImageAvatar } from '../ui/avatar';
 import skillIcon from "@/public/icons/skills/javascript.svg";
 
 import { Button, buttonVariants } from '../ui/button';
 import { Link2, MapPin, PencilLine, Sparkle, Sparkles } from 'lucide-react';
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import { cn, log } from '@/lib/utils';
 import Link from 'next/link';
 import sampleImg from "@/public/images/sample2.jpg"
 import { usePathname } from 'next/navigation';
+import { User } from '@/types/user';
+import userApi from '@/lib/api/user-api';
+import { format } from 'date-fns';
+import ProfileDashboardMetadata from './profile-dashboard-metadata';
 
 const options = ["WORK", "RESUME", "COLLECTIONS", "POSTS"] as const;
 
@@ -18,19 +22,53 @@ const ProfileDashboard = () => {
     const pathname = usePathname();
     const [activeTab, setActiveTab] = useState<typeof options[number]>('WORK');
 
+    const [userData, setUserData] = useState<User | null>(null);
+    const [isLoading, startTransition] = useTransition();
+
+    const handleGetProfileData = async () => {
+        try {
+
+            const res = await userApi.getUserProfileByUsername(pathname?.split('/')[1] || '');
+
+            setUserData(res.data?.data || null);
+
+            log('getUserProfileByUsername response', res);
+
+        } catch (error) {
+            log('handleGetProfileData error', error);
+        }
+    };
+
+    useEffect(() => {
+        startTransition(() => handleGetProfileData());
+    }, []);
+
+    if (isLoading)
+        return (
+            <div className='w-full max-w-full h-[100dvh] lg:w-[640px] 2xl:w-2xl font-sans flex flex-col items-start md:items-center justify-start gap-5 border border-border/60 rounded-lg overflow-hidden bg-white text-primary.' />
+        )
+
+    if (!userData) return (
+        <div className='w-full max-w-full h-[100dvh] lg:w-[640px] 2xl:w-2xl font-sans flex flex-col items-start md:items-center justify-start gap-5 border border-border/60 rounded-lg overflow-hidden bg-white text-primary.'>
+            NOT FOUND 404
+        </div>
+    )
+
     return (
         <div className='w-full max-w-full h-[100dvh] lg:w-[640px] 2xl:w-2xl font-sans flex flex-col items-start md:items-center justify-start gap-5 border border-border/60 rounded-lg overflow-hidden bg-white text-primary.'>
 
-            <div className='w-full h-fit p-4 md:p-5 flex flex-col items-start md:items-center justify-start gap-5 bg-lime-2000'>
+
+            <div className='w-full h-fit p-4 md:p-5 flex flex-col items-start md:items-center justify-start gap-3 bg-lime-2000'>
+
                 <div className='min-h-fit h-12 w-full flex items-center justify-start  gap-2 bg-cyan-3000'>
                     <ProfileImageAvatar
-                        src=''
-                        alt=''
+                        src={userData?.picture ?? ''}
+                        alt='profile'
                         className='size-12'
                     />
 
                     <div className='h-full w-fit flex flex-col gap-0.5'>
-                        <p className=' text-base font-semibold'>Aakesh V M</p>
+                        <p className=' text-base font-semibold'>{userData?.name}</p>
                         <div className='text-xs text-secondary-foreground'>
                             <Link href={'#'} className='hover:underline'>
                                 <span className='font-semibold'>13</span> followers
@@ -54,7 +92,7 @@ const ProfileDashboard = () => {
                 <div className='relative w-full h-44 flex items-center justify-start md:justify-center rounded-lg  bg-cyan-200'>
 
                     <Image
-                        src={sampleImg}
+                        src={userData?.cover_picture ?? sampleImg.src}
                         alt='cover image'
                         fill
                         className='object-cover rounded-lg'
@@ -62,7 +100,7 @@ const ProfileDashboard = () => {
 
                     <div className='relative size-20 md:mt-44 rounded-full shadow bg-rose-40 '>
                         <ProfileImageAvatar
-                            src=''
+                            src={userData?.picture ?? ''}
                             alt='profile'
                             className='size-full'
                         />
@@ -77,41 +115,21 @@ const ProfileDashboard = () => {
 
                 </div>
 
-                <p className='md:mt-10 text-lg font-semibold'>Aakesh V M</p>
+                <p className='md:mt-10 text-lg font-semibold'>{userData?.name}</p>
 
                 <p className='w-full md:w-4/5 text-start md:text-center text-sm '>
-                    Frontend Dev (2 yrs) skilled in Next.js, React & TypeScript. Passionate about clean UIs, smooth UX & scalable apps.
+                    {userData?.bio}
                 </p>
 
-                <div className='w-full h-fit text-xs flex items-center justify-start md:justify-center flex-wrap gap-4 bg-yellow-3000'>
+                <ProfileDashboardMetadata userData={userData} />
 
-                    <div className='w-fit flex items-center justify-start gap-1'>
-                        <Sparkles className="size-4 stroke-[2.5]" />
-                        <p>Joined 29 Aug 2025</p>
-                    </div>
-                    <div className='w-fit flex items-center justify-start gap-1'>
-                        <MapPin className="size-4 stroke-[2.5]" />
-                        <p>Bengaluru, IN</p>
-                    </div>
-                    <div className='w-fit flex items-center justify-start gap-1'>
-                        <Link2 className="size-4 stroke-[2.5] -rotate-45" />
-                        <a
-                            href='https://aakesh.vercel.app'
-                            target='_blank'
-                            rel="noopener noreferrer"
-                            className='hover:underline'
-
-                        >aakesh.vercel.app</a>
-                    </div>
-                </div>
-
-                <ul className='w-full  flex items-start justify-start md:justify-center md:flex-wrap overflow-x-auto scrollbar-none gap-3 bg-cyan-2000'>
-                    {new Array(10).fill(0).map((_, index) => {
+                <ul className='w-full flex items-start justify-start md:justify-center md:flex-wrap overflow-x-auto scrollbar-none gap-3 bg-cyan-2000'>
+                    {[...userData?.profile_tags || []].map((tag, index) => {
                         return (
                             <li key={index} className='shrink-0'>
                                 <Button variant={"primary"} size={"icon-xxs"} className='w-fit min-w-fit p-1 px-2.5 flex items-center justify-start gap-1.5 '>
                                     <Image src={skillIcon} alt='skill' width={16} height={16} className={''} />
-                                    <p className='text-xs font-medium'>JavsScript</p>
+                                    <p className='text-xs font-medium'>{tag}</p>
                                 </Button>
                             </li>
                         )

@@ -8,7 +8,7 @@ import Link from 'next/link';
 const Header = async () => {
     const session = await getServerSession(authOptions);
 
-    console.log(' session : ', session);
+    console.log(' session : ', session?.user);
 
     return (
         <header

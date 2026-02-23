@@ -7,6 +7,7 @@ const login = async (
     email: string,
     password: string
 ): Promise<{ user: IUser; accessToken: string; refreshToken: string }> => {
+
     const res = await api.post('/api/auth/login', {
         email,
         password,
@@ -19,6 +20,7 @@ const login = async (
         accessToken: res.data.access_token,
         refreshToken: res.data.refresh_token,
     };
+
 };
 
 const signup = async (payload: { email: string; password: string }): Promise<{ token: string }> => {
