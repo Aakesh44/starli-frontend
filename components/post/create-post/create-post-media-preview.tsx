@@ -32,7 +32,7 @@ const CreatePostMediaPreview = ({
                         <Image
                             src={url}
                             alt={file.name}
-                            className='object-cover rounded-md'
+                            className='object-scale-down rounded-md'
                             fill
                         />
 

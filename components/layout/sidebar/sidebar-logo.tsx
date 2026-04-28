@@ -66,7 +66,7 @@ const SidebarLogo = ({ className, ...props }: Props) => {
 
                 <Button
                     variant="ghost" size="icon-sm"
-                    className={`p-1 text-primary-foreground hover:bg-background hover:text-primary-foreground border border-transparent hover:border-border/60 grid place-items-center ${isSidebarOpen ? 'block md:hidden' : 'hidden'}`}
+                    className={`p-1 text-primary-foreground hover:bg-background hover:text-primary-foreground border border-transparent hover:border-border/60 grid place-items-center ${isSidebarOpen ? 'block md:hidden.' : 'hidden'}`}
                     onClick={() => setSideBarOpen(false)}
                 >
                     <PanelLeftClose className={""} />

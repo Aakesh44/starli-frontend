@@ -1,6 +1,6 @@
-import { getPosts } from "@/lib/api/post-api";
 import { Post } from "@/types/post";
 import { InfiniteData, useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { postApi } from '../../lib/api/post-api';
 
 export const postsKeys = {
 
@@ -41,7 +41,7 @@ export const useInfinitePosts = ({
     return useInfiniteQuery({
         queryKey: postsKeys.list({ author, q, tag, filter, limit }),
         queryFn: ({ pageParam }: { pageParam?: string }) =>
-            getPosts({
+            postApi.getPosts({
                 cursor: pageParam,
                 limit,
                 author,

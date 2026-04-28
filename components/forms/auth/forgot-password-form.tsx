@@ -14,12 +14,15 @@ export function ForgotPasswordForm({ className, ...props }: React.ComponentProps
     const router = useRouter();
 
     const handleForgotPassword = async (e: React.FormEvent) => {
+
         e.preventDefault();
 
         try {
+
             const { token } = await authApi.validateEmailForPasswordReset(email);
 
             router.push('/email-verify?token=' + token + '&type=forgot-password');
+
         } catch (error) {
             log('Error in handleForgotPassword:', error);
             return;

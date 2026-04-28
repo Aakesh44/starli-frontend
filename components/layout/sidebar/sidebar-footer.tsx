@@ -48,7 +48,7 @@ const SidebarFooter = ({ className }: { className?: string }) => {
                         <span className="px-1. bg-rose-4000 h-full aspect-square grid place-items-center group-hover:scale-[1.01].">
 
                             <ProfileImageAvatar
-                                src={user?.image || './icons/star.png'}
+                                src={user?.picture || './icons/star.png'}
                                 alt={user?.name || ''}
                                 className="size-6 border-0"
                             />

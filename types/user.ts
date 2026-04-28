@@ -1,6 +1,6 @@
 import { ISOString } from "./common";
 
-export interface IUser {
+export interface IUser extends User {
     email: string;
     name: string;
     id: string;

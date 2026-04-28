@@ -22,6 +22,7 @@ const ProfileEditFormProfileTags = () => {
                     <Controller
                         name='tags'
                         control={control}
+
                         render={({ field, fieldState }) => (
 
                             <ChipInput

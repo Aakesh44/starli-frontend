@@ -2,7 +2,14 @@ import Image from 'next/image';
 import React from 'react';
 import sampleImage from '../../public/images/sample.jpg'
 
-const CommentMedia = () => {
+interface CommentMediaProps {
+    media: string
+}
+
+const CommentMedia = ({ media }: CommentMediaProps) => {
+
+    if (media) return null;
+
     return (
         <div className='relative w-52 h-auto grid grid-cols-1  overflow-hidden'>
             <div className='relative '>

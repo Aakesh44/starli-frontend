@@ -43,12 +43,12 @@ const UserMenu = () => {
 
             <DropdownMenuGroup className='py-2 space-y-2'>
 
-                <DropdownMenuItem className='  cursor-pointer w-full flex hover:gap-2.5 hover:text-foreground transition-all duration-200'>
+                <DropdownMenuItem onClick={authApi.logout} className='  cursor-pointer w-full flex hover:gap-2.5 hover:text-foreground transition-all duration-200'>
                     <LogOut className='group-hover:text-foreground size-4' />
                     Logout
                 </DropdownMenuItem>
 
-                <DropdownMenuItem onClick={(e) => e.preventDefault()} className=' cursor-pointer w-full h-8 flex justify-between'>
+                {/* <DropdownMenuItem onClick={(e) => e.preventDefault()} className=' cursor-pointer w-full h-8 flex justify-between'>
 
                     <div className='grow flex items-center gap-2 hover:gap-2.5 hover:text-foreground transition-all duration-200'>
 
@@ -59,7 +59,8 @@ const UserMenu = () => {
 
                     <ThemeToggle />
 
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
+
             </DropdownMenuGroup>
 
 
@@ -89,6 +90,7 @@ import { Toggle } from '@/components/ui/toggle';
 import ThemeToggle from '@/components/ui/theme-toggle';
 import Link from 'next/link';
 import Header from '@/components/layout/nav/home/header';
+import authApi from '@/lib/api/auth-api';
 
 export function DropdownMenuDemo() {
     return (

@@ -1,13 +1,13 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteDraft } from "@/lib/api/post-api";
 import { DraftsAndScheduledResponse, useDraftsAndScheduledPostsQueryKey } from "./useDraftsAndScheduledPosts";
 import { toast } from "sonner";
+import { postApi } from '../../lib/api/post-api';
 
 const handleDeleteDraft = async (id: string) => {
 
     try {
-        await deleteDraft(id);
+        await postApi.deleteDraft(id);
         toast.success('Draft deleted successfully.');
     } catch (error) {
         throw new Error('Error deleting draft');

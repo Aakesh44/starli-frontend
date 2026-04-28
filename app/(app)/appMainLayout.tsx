@@ -18,7 +18,7 @@ const AppMainLayout = ({ children }: { children: React.ReactNode }) => {
                 !mounded ? 'md:ml-60' : isSidebarOpen ? 'md:ml-60' : 'md:ml-14'
             )}
         >
-            <div className='w-full min-h-fit h-full flex flex-col bg-primary drop-shadow rounded-md'>
+            <div className='w-full min-h-fit h-full flex flex-col bg-primary drop-shadow rounded-md overflow-hidden'>
 
                 {children}
 

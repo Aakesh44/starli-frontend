@@ -4,6 +4,8 @@ import { ArrowBigUp, Bookmark, EllipsisVertical, MessageSquareText, RefreshCw } 
 import { SimpleDropDownMenu } from '../../ui/dropdown-menu';
 import PostExtraActionsDropdown from './post-extra-actions-dropdown';
 import { Post } from '@/types/post';
+import useToggleLike from '@/hooks/posts/useToggleLike';
+import { cn } from '@/lib/utils';
 
 type Props = {
     post: Post
@@ -12,7 +14,8 @@ const PostActions = ({
     post
 }: Props) => {
 
-    const { counts } = post;
+    const { counts, liked } = post;
+    const { mutate: toggleLike, isPending } = useToggleLike(post.id);
 
     return (
         <div className='w-full h-10 flex items-center justify-between bg-lime-3000'>
@@ -37,12 +40,12 @@ const PostActions = ({
                     </span>
                 </Button>
 
-                <Button variant={"ghost"} size={"icon-xxs"} className='group-hover:bg-white hover:bg-white hover:border-transparent hover:shadow-none group/icon'>
-                    <span className='p-1 rounded-md group-hover/icon:bg-green-100 group-hover/icon:text-green-700'>
+                <Button onClick={() => toggleLike(liked)} variant={"ghost"} size={"icon-xxs"} className='group-hover:bg-white hover:bg-white hover:border-transparent hover:shadow-none group/icon'>
+                    <span className={cn('p-1 rounded-md ', liked ? 'bg-green-100 text-green-700' : 'group-hover/icon:bg-green-100 group-hover/icon:text-green-700')}>
                         <ArrowBigUp className='group-hover/icon:pb-px transition-all duration-300' />
                     </span>
                     <span>
-                        {counts.reactions}
+                        {counts.likes}
                     </span>
                 </Button>
             </div>

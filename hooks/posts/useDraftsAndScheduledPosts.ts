@@ -1,7 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { fetchPostDrafts } from '@/lib/api/post-api';
-import { fetchPostScheduled } from '@/lib/api/post-api';
 import { Post } from '@/types/post';
+import { postApi } from '../../lib/api/post-api';
 
 export const useDraftsAndScheduledPostsQueryKey = ['postDraftsAndScheduled'] as const;
 export type DraftsAndScheduledResponse = {
@@ -14,8 +13,8 @@ const fetchDraftsAndScheduled = async (): Promise<DraftsAndScheduledResponse> =>
     try {
 
         const [draftsResponse, scheduledResponse] = await Promise.all([
-            fetchPostDrafts(),
-            fetchPostScheduled(),
+            postApi.fetchPostDrafts(),
+            postApi.fetchPostScheduled(),
         ]);
 
         return {

@@ -2,7 +2,6 @@
 
 import React, { useEffect, useImperativeHandle, useRef, useState, useTransition } from 'react';
 import { log } from '@/lib/utils';
-import { createPost, PostSubmitStatus, updatePost } from '@/lib/api/post-api';
 import CreatePostHeader from './create-post-header';
 import CreatePostBody from './create-post-body';
 import CreatePostFooter from './create-post-footer';
@@ -23,6 +22,8 @@ import { cleanHtmlContent } from '../../../lib/stringUtils';
 import { prepareFlightRouterStateForRequest } from 'next/dist/client/flight-data-helpers';
 import { postsKeys, prependPostToInfiniteData } from '@/hooks/posts/useInfinitePosts';
 import { Post } from '@/types/post';
+import { PostSubmitStatus } from '@/lib/api/post-api';
+import { postApi } from '../../../lib/api/post-api';
 
 type PostFormState = {
     id?: string;
@@ -68,7 +69,7 @@ const CreatePostForm = React.forwardRef(({ onSuccess }: { onSuccess: () => void 
 
     const handleUpdateContent = (content: string) => {
         contentRef?.current?.commands.setContent(content);
-    }
+    };
 
     const updatePostForm = (patch: Partial<PostFormState>) => {
         setPostForm((prev) => ({
@@ -96,11 +97,11 @@ const CreatePostForm = React.forwardRef(({ onSuccess }: { onSuccess: () => void 
 
         if (postForm.type === 'EDIT') {
             if (!postForm.id) return;
-            response = await updatePost(postForm.id, { ...postForm, id: postForm.id, content: cleanHtmlContent(postForm.content), status: status });
+            response = await postApi.updatePost(postForm.id, { ...postForm, id: postForm.id, content: cleanHtmlContent(postForm.content), status: status });
             toast.success(`Post ${capitalize(status)} successfully!`);
         }
         else {
-            response = await createPost({ ...postForm, content: cleanHtmlContent(postForm.content), status: status });
+            response = await postApi.createPost({ ...postForm, content: cleanHtmlContent(postForm.content), status: status });
             toast.success(`Post ${capitalize(status)} successfully!`);
         }
 

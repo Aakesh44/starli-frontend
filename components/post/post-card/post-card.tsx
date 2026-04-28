@@ -23,7 +23,7 @@ const PostCard = ({ post, mode = 'scroll' }: PostCardProps) => {
         <article
             onClick={() => {
                 if (mode === 'scroll') {
-                    router.push('/scroll/post/abcd1234')
+                    router.push('/scroll/post/' + post.id);
                 }
             }}
             className={cn(
@@ -33,7 +33,9 @@ const PostCard = ({ post, mode = 'scroll' }: PostCardProps) => {
 
             <PostHeader post={post} />
 
-            <div className='w-full h-fit pt-2 pl-12 flex flex-col items-center justify-start gap-3 bg-cyan-2000'>
+            <div
+                onClick={(e) => e.stopPropagation()}
+                className='w-full h-fit pt-2 pl-12 flex flex-col items-center justify-start gap-3 bg-cyan-2000'>
 
                 <PostContent post={post} />
 
@@ -43,9 +45,9 @@ const PostCard = ({ post, mode = 'scroll' }: PostCardProps) => {
 
                 {mode === 'scroll' && (
                     <>
-                        <PostEngagements />
+                        <PostEngagements post={post} />
 
-                        <CommentList />
+                        <CommentList targetId={post.id} targetType='POST' />
                     </>
                 )}
 

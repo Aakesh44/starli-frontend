@@ -4,24 +4,35 @@ import CommentList from '@/components/comments/comment-list';
 import LikeList from '@/components/likes/like-list';
 import PostCard from '@/components/post//post-card/post-card';
 import { Button } from '@/components/ui/button';
+import { useComments } from '@/hooks/comment/use-comments';
+import { usePost } from '@/hooks/posts/usePost';
 import { cn } from '@/lib/utils';
 import { Post } from '@/types/post';
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 
 const options = ["COMMENTS", "UPVOTES"] as const;
 
-const page = () => {
+const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 
     const [activeTab, setActiveTab] = useState<typeof options[number]>('COMMENTS');
+    const { id: postId } = use(params);
+
+    // console.log('params', params, postId);
+
+    const { data, isLoading } = usePost(postId);
+
+    if (isLoading) return <div>Loading...</div>;
+
+    if (!data) return <div>Post not found</div>;
 
     return (
         <div className='w-full h-full flex flex-col items-start justify-start overflow-y-auto scrollbar-thin'>
 
-            <PostCard mode='single' post={{} as Post} />
+            <PostCard mode='single' post={data.post} />
 
             <div className='w-full p-5'>
 
-                <CommentForm />
+                <CommentForm targetId={data.post.id} targetType='POST' commentType='COMMENT' />
 
             </div>
 
@@ -39,14 +50,18 @@ const page = () => {
                                 option === activeTab ? 'text-green-500 border-b-green-500' : 'hover:text-primary-foreground'
                             )}
                         >
-                            {option} • 2
+                            {option} • {option === "COMMENTS" ? data.post.counts.comments : data.post.counts.likes}
                         </Button>
                     )
                 })}
             </div>
 
             {activeTab === "COMMENTS" ?
-                <CommentList className='p-5' /> :
+                <CommentList
+                    targetId={data.post.id}
+                    targetType='POST'
+                    className='p-5'
+                /> :
                 <LikeList />
             }
 
@@ -55,4 +70,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Page;

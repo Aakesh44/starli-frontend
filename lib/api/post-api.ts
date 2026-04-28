@@ -32,7 +32,7 @@ type UpdatePostPayload = {
     status: PostSubmitStatus;
 }
 
-export const getPosts = async (params: GetPostsParams): Promise<{ posts: Post[]; cursor?: string }> => {
+const getPosts = async (params: GetPostsParams): Promise<{ posts: Post[]; cursor?: string }> => {
     const res = await api.get(
         '/api/post',
         {
@@ -55,7 +55,15 @@ export const getPosts = async (params: GetPostsParams): Promise<{ posts: Post[];
     };
 }
 
-export const createPost = async (payload: PostPayload): Promise<any> => {
+const getPostById = async (id: string): Promise<{ post: Post }> => {
+    const response = await api.get(`/api/post/${id}`);
+    log('getPost response', response);
+    return {
+        post: response.data?.post,
+    };
+}
+
+const createPost = async (payload: PostPayload): Promise<any> => {
     const response = await api.post('/api/post/', {
         ...payload,
     });
@@ -63,7 +71,7 @@ export const createPost = async (payload: PostPayload): Promise<any> => {
     return response;
 }
 
-export const updatePost = async (id: string, payload: UpdatePostPayload): Promise<any> => {
+const updatePost = async (id: string, payload: UpdatePostPayload): Promise<any> => {
     const response = await api.put(`/api/post/${id}`, {
         ...payload,
     });
@@ -71,27 +79,52 @@ export const updatePost = async (id: string, payload: UpdatePostPayload): Promis
     return response;
 }
 
+const addLikeToPost = async (postId: string) => {
+    const response = await api.post(`/api/post/${postId}/like/add`);
+    log('likeToPost response', response);
+    return response.data?.post;
+};
 
-export const fetchPostDrafts = async (): Promise<any> => {
+const removeLikeFromPost = async (postId: string) => {
+    const response = await api.post(`/api/post/${postId}/like/remove`);
+    log('removeLikeFromPost response', response);
+    return response.data?.post;
+}
+
+
+const fetchPostDrafts = async (): Promise<any> => {
     const response = await api.get('/api/post/?filter=DRAFT');
     log('fetchPostDrafts response', response);
     return response;
 }
 
-export const deleteDraft = async (id: string): Promise<any> => {
+const deleteDraft = async (id: string): Promise<any> => {
     const response = await api.delete(`/api/post/${id}`);
     log('deleteDraft response', response);
     return response;
 }
 
-export const fetchPostScheduled = async (): Promise<any> => {
+const fetchPostScheduled = async (): Promise<any> => {
     const response = await api.get('/api/post/?filter=SCHEDULED');
     log('fetchPostScheduled response', response);
     return response;
 };
 
-export const deleteScheduledPost = async (id: string): Promise<any> => {
+const deleteScheduledPost = async (id: string): Promise<any> => {
     const response = await api.delete(`/api/post/${id}`);
     log('deleteScheduledPost response', response);
     return response;
 }
+
+export const postApi = {
+    getPosts,
+    getPostById,
+    createPost,
+    updatePost,
+    fetchPostDrafts,
+    deleteDraft,
+    addLikeToPost,
+    removeLikeFromPost,
+    fetchPostScheduled,
+    deleteScheduledPost
+};

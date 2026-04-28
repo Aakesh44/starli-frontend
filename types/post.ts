@@ -8,10 +8,12 @@ export type Post = {
     content: string;
     tag: string;
     media: string[];
+    liked: boolean; // true for like, false for dislike, null for no reaction
     counts: {
         comments: number;
+        likes: number;
+        dislikes: number;
         reshares: number;
-        reactions: number;
     }
     status: 'PUBLISHED' | 'DRAFT' | 'SCHEDULED';
     isReshare: boolean;

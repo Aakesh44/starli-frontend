@@ -1,11 +1,11 @@
-import { deleteScheduledPost } from "@/lib/api/post-api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { DraftsAndScheduledResponse, useDraftsAndScheduledPostsQueryKey } from "./useDraftsAndScheduledPosts";
 import { toast } from "sonner";
+import { postApi } from '../../lib/api/post-api';
 
 const handleDeleteScheduledPost = async (id: string) => {
     try {
-        await deleteScheduledPost(id);
+        await postApi.deleteScheduledPost(id);
         toast.success('Post deleted successfully!');
     } catch (error) {
         throw new Error('Error deleting scheduled post');

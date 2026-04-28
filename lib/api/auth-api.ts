@@ -88,11 +88,17 @@ const resetPassword = async (token: string, password: string) => {
 };
 
 const logout = async () => {
-    const res = await api.post('/api/auth/logout');
-    log('logout res', res);
+    try {
+        const res = await api.post('/api/auth/logout');
+        log('logout res', res);
 
-    await signOut({ callbackUrl: '/' });
-    return res.data;
+        await signOut({ callbackUrl: '/' });
+        return res.data;
+
+    } catch (error) {
+        log('logout error', error);
+        return error;
+    }
 };
 
 const authApi = {

@@ -20,7 +20,7 @@ const UserNavIcon = () => {
                 href={user?.username ?? '/user'}
                 className='rounded-full p-0 w-fit h-fit grid place-items-center'
             >
-                <ProfileImageAvatar src={user?.image || './icons/star.png'} alt={user?.name || ''} fallback={user?.name || ''} />
+                <ProfileImageAvatar src={user?.picture || './icons/star.png'} alt={user?.name || ''} fallback={user?.name || ''} />
             </Link>
 
             {/* <Button variant={"ghost"} size={"icon-sm"} className='rounded-full p-0 w-fit h-fit grid place-items-center'>
