@@ -30,9 +30,11 @@ export function SignupForm({ className, ...props }: React.ComponentProps<'div'>)
 
         startTransition(async () => {
             try {
+
                 const { token } = await authApi.signup({ email, password });
 
                 router.push('/email-verify?token=' + token + '&type=signup');
+
             } catch (error: any) {
                 if (error?.response?.data?.errors) {
                     error?.response?.data?.errors.map((error: any) => {
