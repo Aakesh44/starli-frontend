@@ -59,7 +59,7 @@ const SidebarSection = ({
                             {toUpperCase(title || '')}
                         </p>
 
-                        <Minus className={cn('h-6 text-stone-400 group-data-[state=open]:h-5 group-data-[state=open]:rotate-180 transition-all', theme)} />
+                        <Minus className={cn('h-4 text-stone-400 group-data-[state=open]:h-6 group-data-[state=open]:rotate-180 transition-all', theme)} />
 
                         <ChevronDown className='hidden size-4 text-foreground/60 group-data-[state=open]:rotate-180 transition-all cursor-pointer' />
 
@@ -72,6 +72,7 @@ const SidebarSection = ({
                                 label={item.label}
                                 href={item.href}
                                 icon={item.icon}
+                                onClickAction={item.onClickAction}
                             />
                         ))}
                     </CollapsibleContent>

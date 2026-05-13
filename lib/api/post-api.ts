@@ -1,6 +1,8 @@
 import { Post } from "@/types/post";
 import api from "../api";
 import { log } from "../utils";
+import { User } from "@/types/user";
+import { toast } from "sonner";
 
 export type GetPostsParams = {
     cursor?: string;
@@ -64,19 +66,50 @@ const getPostById = async (id: string): Promise<{ post: Post }> => {
 }
 
 const createPost = async (payload: PostPayload): Promise<any> => {
-    const response = await api.post('/api/post/', {
-        ...payload,
-    });
+
+    const formData = new FormData();
+
+    formData.append('title', payload.title);
+    formData.append('content', payload.content);
+    formData.append('tag', payload.tag);
+    if (payload.media && payload.media.length > 0) payload.media.forEach((file) => formData.append('media', file));
+    if (payload.scheduledAt) formData.append('scheduledAt', payload.scheduledAt);
+    formData.append('status', payload.status);
+
+    const response = await api.postForm('/api/post/', formData);
     log('createPost response', response);
     return response;
 }
 
 const updatePost = async (id: string, payload: UpdatePostPayload): Promise<any> => {
-    const response = await api.put(`/api/post/${id}`, {
+    const response = await api.putForm(`/api/post/${id}`, {
         ...payload,
     });
     log('updatePost response', response);
     return response;
+}
+
+const getPostLikes = async (postId: string): Promise<User[]> => {
+    const response = await api.get(`/api/post/${postId}/likes`);
+    log('getPostLikes response', response);
+    return response.data.likes ?? [];
+};
+
+const getLikedPosts = async (params: {
+    cursor?: string;
+    limit?: number;
+}): Promise<{ posts: Post[]; cursor?: string }> => {
+    const response = await api.get('/api/post/liked-posts', {
+        params: {
+            cursor: params.cursor,
+            limit: params.limit,
+        },
+    });
+    log('getLikedPosts response', response);
+    return {
+        posts: response.data?.posts?.items ?? [],
+        cursor: response.data.posts?.nextCursor,
+    };
 }
 
 const addLikeToPost = async (postId: string) => {
@@ -114,6 +147,17 @@ const deleteScheduledPost = async (id: string): Promise<any> => {
     const response = await api.delete(`/api/post/${id}`);
     log('deleteScheduledPost response', response);
     return response;
+};
+
+// mark not intersted
+const markNotInterested = async (postId: string): Promise<any> => {
+    toast.error('Post marked as not interested. We will show you less posts like this in the future.');
+    return;
+}
+
+const reportPost = async (postId: string): Promise<any> => {
+    toast.error('Post reported. Thank you for helping us keep the community safe.');
+    return;
 }
 
 export const postApi = {
@@ -123,8 +167,13 @@ export const postApi = {
     updatePost,
     fetchPostDrafts,
     deleteDraft,
+    getPostLikes,
+    getLikedPosts,
     addLikeToPost,
     removeLikeFromPost,
     fetchPostScheduled,
-    deleteScheduledPost
+    deleteScheduledPost,
+
+    markNotInterested,
+    reportPost,
 };

@@ -13,7 +13,7 @@ interface CreateCommentParams {
 
 interface CreateCommentPayload {
     content: string;
-    media: File[];
+    media: File | null;
 }
 
 export const useCreateComment = ({

@@ -17,10 +17,10 @@ const UserNavIcon = () => {
         <SimpleTooltip content={"Profile"} >
 
             <Link
-                href={user?.username ?? '/user'}
+                href={user?.username ? '/' + user?.username : '/user'}
                 className='rounded-full p-0 w-fit h-fit grid place-items-center'
             >
-                <ProfileImageAvatar src={user?.picture || './icons/star.png'} alt={user?.name || ''} fallback={user?.name || ''} />
+                <ProfileImageAvatar src={user?.picture?.url || './icons/star.png'} alt={user?.name || ''} fallback={user?.name || ''} />
             </Link>
 
             {/* <Button variant={"ghost"} size={"icon-sm"} className='rounded-full p-0 w-fit h-fit grid place-items-center'>

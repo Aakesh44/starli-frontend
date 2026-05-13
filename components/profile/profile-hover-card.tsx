@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '../ui/hover-card';
+import { HoverCard, HoverCardContent, HoverCardTrigger, SimpleHoverCard } from '../ui/hover-card';
 import { ProfileImageAvatar } from '../ui/avatar';
 import { Button } from '../ui/button';
 import Link from 'next/link';
@@ -7,47 +7,64 @@ import { User } from '@/types/user';
 import { MessageCircleCode, MessageSquareDashed, MessageSquareDiff, MessageSquareText, MessagesSquare } from 'lucide-react';
 import { Skeleton } from '../ui/skeleton';
 import { useSession } from 'next-auth/react';
+import followApi from '@/lib/api/follow-api';
 
 type Props = {
-    author: User
+    user: User
+    content: React.ReactNode
+};
+
+const ProfileHoverCard = ({ user, content }: Props) => {
+    return (
+        <SimpleHoverCard
+            content={<ProfileCard user={user} />}
+            children={
+                <>
+                    {content}
+                </>
+            }
+        />
+    )
 }
-const ProfileHoverCard = ({ author }: Props) => {
+
+const ProfileCard = ({ user }: { user: User }) => {
 
     const { data } = useSession();
+
+    console.log(' ⚠️ user in profile card', user);
 
     // return <ProfileCardSkeleton />
 
     return (
-        <div className='w-72 h-fit p-3 font-sans space-y-2'>
-            <div className='h-14 w-full flex items-center justify-between bg-lime-2000'>
+        <div onClick={(e) => e.stopPropagation()} className='w-72 h-fit p-3 font-sans space-y-2'>
 
-                <ProfileImageAvatar src='s' alt='aa' className='size-14 shrink-0 aspect-square' />
+            <div className='h-fit w-full flex items-center justify-between '>
 
-                {data?.user?.id == author?.id && (
+                <ProfileImageAvatar src={user?.picture?.url} alt='profile' className='size-12 shrink-0 aspect-square' />
+
+                {data?.user?.id !== user?.id && !user?.following && (
 
                     <div className='w-fit h-full flex items-start justify-start gap-2'>
-                        <Button className='h-8 aspect-square' variant={"primary"} size={"icon-xxs"}>
+                        {/* <Button className='h-8 aspect-square' variant={"primary"} size={"icon-xxs"}>
                             <MessageSquareText />
-                        </Button>
-                        <Button className='h-8'>Follow</Button>
+                        </Button> */}
+                        <Button onClick={() => followApi.follow(user?.id)} className='h-8'>Follow</Button>
                     </div>
                 )}
+
             </div>
 
-            <p>{author?.name}</p>
+            <Link href={`/${user?.username}`} className='font-medium hover:underline'>{user?.name}</Link>
 
-            <div className='w-full text-slate-500 font-normal flex items-center justify-start gap-1'>
-                <Link
-                    href={`${author?.username}`}
-                    className='hover:underline'
-                >
-                    @{author?.username}
-                </Link>
-                <p>•</p>
-                <p>{"19 Followers"}</p>
+            <div className='w-full text-slate-500 text-sm font-normal flex flex-wrap items-center justify-start gap-1'>
+                <p >
+                    @{user?.username}
+                </p>
+                {/* <p>•</p>
+                <p>{"19 Followers"}</p> */}
             </div>
 
-            <p className='line-clamp-2'>{author?.bio}</p>
+            <p className='text-sm line-clamp-2'>{user?.bio}</p>
         </div>
     );
 };

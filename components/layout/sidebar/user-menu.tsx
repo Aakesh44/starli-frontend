@@ -16,21 +16,21 @@ const UserMenu = () => {
             <div className='w-full h-16 flex items-center justify-start gap-3 px-3 bg-secondary rounded-b-lg border-b border-border overflow-hidden'>
 
                 <ProfileImageAvatar
-                    src={user?.image || './icons/star.png'}
+                    src={user?.picture?.url || './icons/star.png'}
                     alt={'profile'}
                     className='size-6 border-0'
                 />
 
                 <div className='h-fit grow min-w-0 flex flex-col bg-yellow-3000'>
-                    <p className='text-base font-pt-serif text-foreground w-full truncate'>{user?.name || 'Aakesh V M'}</p>
-                    <p className='max-w-full text-xxs text-secondary-foreground w-full truncate'>{user?.email || 'aakeshviswanathan@gmail.commmmmm'}</p>
+                    <p className='text-base font-pt-serif text-foreground w-full truncate'>{user?.name}</p>
+                    <p className='max-w-full text-xxs text-secondary-foreground w-full truncate'>{user?.email}</p>
                 </div>
 
             </div>
 
             <DropdownMenuGroup className='py-2'>
 
-                <Link href={'/aakesh'}>
+                <Link href={session?.data?.user?.username ?? '/user'}>
                     <DropdownMenuItem className=' cursor-pointer w-full flex group hover:gap-2.5 hover:text-foreground transition-all duration-200'>
                         <CircleUserRound className='group-hover:text-foreground size-4' />
                         Profile
@@ -43,9 +43,9 @@ const UserMenu = () => {
 
             <DropdownMenuGroup className='py-2 space-y-2'>
 
-                <DropdownMenuItem onClick={authApi.logout} className='  cursor-pointer w-full flex hover:gap-2.5 hover:text-foreground transition-all duration-200'>
-                    <LogOut className='group-hover:text-foreground size-4' />
-                    Logout
+                <DropdownMenuItem onClick={authApi.logout} className='text-destructive cursor-pointer w-full flex hover:gap-2.5 transition-all duration-200'>
+                    <LogOut className=' text-destructive size-4' />
+                    <p className='text-destructive'>Logout</p>
                 </DropdownMenuItem>
 
                 {/* <DropdownMenuItem onClick={(e) => e.preventDefault()} className=' cursor-pointer w-full h-8 flex justify-between'>

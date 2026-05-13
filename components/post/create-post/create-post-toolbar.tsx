@@ -46,13 +46,13 @@ const CreatePostToolbar = ({
                 className='hidden'
             />
 
-            <SimpleTooltip content={"Make a Poll"}>
+            {/* <SimpleTooltip content={"Make a Poll"}>
 
                 <Button variant={"ghost"} size={"icon-xxs"}>
                     <ListTodo />
                 </Button>
 
-            </SimpleTooltip>
+            </SimpleTooltip> */}
 
             <span className='h-3/5 w-px bg-border/60 rounded-full'></span>
 
@@ -79,7 +79,7 @@ const CreatePostToolbar = ({
             </SimpleDropDownMenu>
 
             <p className={cn('ml-auto text-secondary-foreground text-xs font-medium', error ? 'text-destructive' : '')}>
-                {error ? error : 'Type @ to mention someone'}
+                {error ? error : 'What is in your mind?'}
             </p>
 
             <SimpleTooltip content={"Content Guideline"}>

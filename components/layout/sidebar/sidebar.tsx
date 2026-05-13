@@ -23,8 +23,8 @@ const Sidebar = () => {
                 <SidebarSection className='py-2'>
 
                     <SidebarItem
-                        label="Home"
-                        href='/home'
+                        label="For you"
+                        href='/scroll'
                         icon={<Sparkles strokeWidth={2} className="size-4" />}
                     />
                 </SidebarSection>
@@ -44,7 +44,7 @@ const Sidebar = () => {
 
             <div className='mt-auto w-full space-y-2'>
 
-                <CommandMenuIcon />
+                {/* <CommandMenuIcon /> */}
 
                 <SidebarFooter />
             </div>

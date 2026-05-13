@@ -100,7 +100,9 @@ const ProfileEditForm = () => {
 
                 user: {
                     ...session?.user,
-                    username: values.username
+                    username: values.username,
+                    name: values.name,
+                    picture: profile?.picture || session?.user?.picture,
                 }
             });
 

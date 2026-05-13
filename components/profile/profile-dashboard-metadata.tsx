@@ -21,7 +21,6 @@ const ProfileDashboardMetadata = ({
                 title={`Joined ${format(userData?.createdAt, 'dd MMM yyyy')}`}
             />
 
-
             {userData?.location && (
 
                 <ProfileMetaDataItem

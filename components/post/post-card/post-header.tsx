@@ -14,7 +14,7 @@ const PostHeader = ({
         <div className='w-full h-12 flex items-center justify-start gap-2 bg-amber-3000'>
 
             <ProfileImageAvatar
-                src=''
+                src={post.author?.picture?.url}
                 alt='profile'
                 fallback='A'
                 className='size-10'

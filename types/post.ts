@@ -7,8 +7,14 @@ export type Post = {
     title: string;
     content: string;
     tag: string;
-    media: string[];
+    media: {
+        url: string;
+        type: string;
+        publicId: string;
+    }[];
+    isMine: boolean;
     liked: boolean; // true for like, false for dislike, null for no reaction
+    bookmarked: boolean;
     counts: {
         comments: number;
         likes: number;

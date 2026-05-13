@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const useInfiniteScroll = (
     callback: () => void,
@@ -6,6 +6,7 @@ export const useInfiniteScroll = (
 ) => {
 
     const ref = useRef<HTMLDivElement>(null);
+    const [isInView, setIsInView] = useState(false);
 
     useEffect(() => {
 

@@ -5,13 +5,19 @@ import PostCard from '../post/post-card/post-card';
 import { useInfinitePosts } from '@/hooks/posts/useInfinitePosts';
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import { Post } from '@/types/post';
-import PostCardKkeleton from '../post/post-card/post-card-skeleton';
 import PostCardSkeleton from '../post/post-card/post-card-skeleton';
+import { cn } from '@/lib/utils';
+import { Telescope } from 'lucide-react';
 
-const ScrollList = () => {
+interface ScrollListProps {
+    author?: string;
+};
 
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfinitePosts({
-        filter: "ALL"
+const ScrollList = ({ author = undefined }: ScrollListProps) => {
+
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status, isLoading } = useInfinitePosts({
+        filter: "ALL",
+        author: author,
     });
 
     console.log(' data', data);
@@ -23,9 +29,20 @@ const ScrollList = () => {
         Boolean(hasNextPage && !isFetchingNextPage)
     );
 
+    if (isLoading) return (
+        <ul className='h-grow min-h-fit w-full flex flex-col items-center justify-start'>
+            {[...Array(4)].map((_, index) => {
+                return (
+                    <PostCardSkeleton key={index} />
+                )
+            })}
+        </ul>
+    )
+
     return (
         <ul className='h-grow. min-h-fit w-full flex flex-col items-center justify-start'>
 
+            {posts.length === 0 && author && <ScrollListEmpty />}
 
             {[...posts].map((post) => {
                 return (
@@ -38,6 +55,20 @@ const ScrollList = () => {
             {isFetchingNextPage && <PostCardSkeleton />}
 
         </ul>
+    );
+};
+
+const ScrollListEmpty = () => {
+    return (
+        <div className='py-20 w-full grow flex flex-col items-center justify-center gap-2 bg-fuchsia-2000'>
+
+            <Telescope className={cn('stroke-[0.8] size-10 mb-5 text-primary-foreground/80')} />
+
+            <p className='font-semibold'>No Posts yet!</p>
+
+            <p>Being active is the best way to get started.</p>
+
+        </div>
     );
 };
 

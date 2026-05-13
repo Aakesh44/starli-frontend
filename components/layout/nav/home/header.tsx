@@ -28,7 +28,7 @@ const Header = async () => {
             </Link>
 
             {/* {session?.user?.email} */}
-            <DeskTopNavMenu />
+            {/* <DeskTopNavMenu /> */}
 
             <AuthButtons />
         </header>

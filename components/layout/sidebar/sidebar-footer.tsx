@@ -40,7 +40,7 @@ const SidebarFooter = ({ className }: { className?: string }) => {
 
                 <SimpleDropDownMenu
                     menuContent={<UserMenu />}
-                    menuContentClassName={`-mb-8 ${isSidebarOpen ? '' : 'ml-3'}`}
+                    menuContentClassName={`mb-0 ${isSidebarOpen ? '' : 'ml-3'}`}
                     className="flex h-full w-full items-center justify-start gap-1.5 group-hover:gap-2 transition-all duration-200 focus-visible:ring-ring/50 focus-visible:ring-[2px] rounded-md overflow-hidden"
                 >
                     <div>
@@ -48,7 +48,7 @@ const SidebarFooter = ({ className }: { className?: string }) => {
                         <span className="px-1. bg-rose-4000 h-full aspect-square grid place-items-center group-hover:scale-[1.01].">
 
                             <ProfileImageAvatar
-                                src={user?.picture || './icons/star.png'}
+                                src={user?.picture?.url || './icons/star.png'}
                                 alt={user?.name || ''}
                                 className="size-6 border-0"
                             />

@@ -6,6 +6,7 @@ import SignupButton from './signupButton';
 import { useSession } from 'next-auth/react';
 import ProfileButton from './profile-button';
 import GoToProfileButton from './profile-button';
+import GoToHomeButton from './home-button';
 
 const AuthButtons = () => {
 
@@ -15,7 +16,10 @@ const AuthButtons = () => {
         <div className="flex items-center justify-center gap-3">
 
             {session.status === 'authenticated' ? (
-                <GoToProfileButton />
+                <>
+                    <GoToHomeButton />
+                    <GoToProfileButton />
+                </>
             ) : (
                 <>
                     <LoginButton />

@@ -6,9 +6,14 @@ export type Comment = {
     id: string
     author: User
     content: string
+    liked: boolean
     counts: { likes: number, replies: number }
     createdAt: ISOString
-    media: string;
+    media: {
+        url: string;
+        type: string;
+        publicId: string;
+    }[];
     parentId: null | string
     targetId: string
     targetType: CommentTargetType

@@ -11,11 +11,13 @@ export const useSidebarStore = create<SidebarState>()(
     persist(
         (set) => ({
             isOpen: true,
+            isHydrated: false,
             toggleSidebar: () => set((state) => ({ isOpen: !state.isOpen })),
-            setIsOpen: (isOpen: boolean) => set(() => ({ isOpen }))
+            setIsOpen: (isOpen: boolean) => set(() => ({ isOpen })),
         }),
         {
             name: 'sidebar-state',
+
         }
     )
 )

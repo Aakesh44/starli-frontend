@@ -6,42 +6,34 @@ import { cn } from '@/lib/utils';
 
 type Props = {
     post: Post
-}
+};
+
 const PostMedia = ({
     post
 }: Props) => {
 
-    const mediaLength: number = 3;
+    const mediaLength: number = post.media.length;
+
+    if (mediaLength === 0) return null;
 
     return (
         <MediaLayout mediaLength={mediaLength}>
 
-            {new Array(mediaLength).fill(0).map((media, index) => (
+            {[...post.media].map((media, index) => (
 
                 <div
-                    key={index}
+                    key={media.publicId}
                     className={cn(
                         'relative bg-yellow-3000',
                         mediaLength === 3 && index === 0 ? 'row-span-2' : '',
                     )}
                 >
 
-                    <MediaItem src={sampleImage} />
+                    <MediaItem src={media.url} />
 
                 </div>
             ))}
         </MediaLayout>
-    )
-    return (
-        <div className='relative w-full h-full overflow-hidden'>
-            <Image
-                src={sampleImage}
-                alt='image'
-                // fill
-                quality={80}
-                className='w-full h-full min-h-40 max-h-96 object-cover border border-border rounded-xl '
-            />
-        </div>
     );
 };
 

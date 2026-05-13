@@ -27,10 +27,14 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
 
                     <GoogleOneTap />
 
-                    <Toaster position="bottom-center" expand visibleToasts={5} richColors />
+                    <Toaster
+                        position="bottom-right"
+                        expand
+                        visibleToasts={5}
+                        richColors
+                    />
 
                 </QueryClientProvider>
-
 
             </SessionProvider>
         </>

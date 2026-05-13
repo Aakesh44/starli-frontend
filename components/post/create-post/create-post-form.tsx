@@ -288,7 +288,7 @@ const CreatePostForm = React.forwardRef(({ onSuccess }: { onSuccess: () => void 
 
 
     return (
-        <div className="min-h-96 h-fit  md:min-w-[450px] w-[90dvw] md:w-[650px] p-3 font-sans flex flex-col rounded-lg shadow-md bg-white">
+        <div className="min-h-96 h-fit md:min-w-[450px] w-[100dvw] md:w-[650px] p-3 font-sans flex flex-col rounded-lg shadow-md bg-white">
 
             <CreatePostHeader
                 loading={loading}

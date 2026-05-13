@@ -34,7 +34,6 @@ const PostCard = ({ post, mode = 'scroll' }: PostCardProps) => {
             <PostHeader post={post} />
 
             <div
-                onClick={(e) => e.stopPropagation()}
                 className='w-full h-fit pt-2 pl-12 flex flex-col items-center justify-start gap-3 bg-cyan-2000'>
 
                 <PostContent post={post} />
@@ -47,7 +46,7 @@ const PostCard = ({ post, mode = 'scroll' }: PostCardProps) => {
                     <>
                         <PostEngagements post={post} />
 
-                        <CommentList targetId={post.id} targetType='POST' />
+                        <CommentList targetId={post.id} targetType='POST' view='compact' />
                     </>
                 )}
 

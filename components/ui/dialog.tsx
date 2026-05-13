@@ -181,6 +181,33 @@ const SimpleDialog = Object.assign(SimpleDialogRoot, {
   Content: SimpleDialogContent
 });
 
+function ControlledDialog({
+  open,
+  onOpenChange,
+  children,
+  className,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <Dialog
+      open={open}
+      onOpenChange={onOpenChange}
+    >
+      <DialogTitle className="sr-only">Dialog</DialogTitle>
+      <DialogContent
+        className={cn('w-full min-w-fit h-full', className)}
+        showCloseButton={false}
+      >
+        {children}
+      </DialogContent>
+    </Dialog>
+  )
+}
+
 export {
   Dialog,
   DialogClose,
@@ -192,5 +219,6 @@ export {
   DialogPortal,
   DialogTitle,
   DialogTrigger,
-  SimpleDialog
+  SimpleDialog,
+  ControlledDialog
 };

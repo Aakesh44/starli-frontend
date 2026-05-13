@@ -26,8 +26,8 @@ const AppNav = () => {
             {/* <PathBreadCrumb /> */}
 
             <div className='h-full w-fit md:min-w-40 lg:min-w-44 ml-auto flex items-center justify-center gap-4 bg-fuchsia-5000'>
-                <NotificationIcon />
-                <StreakIcon />
+                {/* <NotificationIcon /> */}
+                {/* <StreakIcon /> */}
                 {/* <LayoutChangeIcon /> */}
                 <UserNavIcon />
             </div>

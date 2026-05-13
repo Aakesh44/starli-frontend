@@ -59,19 +59,19 @@ export function ProfileImageAvatar({
   ...props
 
 }: {
-  src: string,
-  alt: string,
+  src?: string,
+  alt?: string,
   fallback?: string
 } & React.ComponentProps<typeof AvatarPrimitive.Root>
 ) {
 
   return (
 
-    <Avatar className={cn("size-7 shrink-0 rounded-full border border-border/60 overflow-hiddensm", className)} {...props}>
+    <Avatar className={cn("size-7 shrink-0 rounded-full overflow-hiddensm", className)} {...props}>
       <AvatarImage
-        src={src || sampleImg?.src || ''}
+        src={src || './icons/star.png' || ''}
         alt={alt || 'profile'}
-        className="size-full object-cover"
+        className="size-full object-cover border border-input rounded-full"
 
       />
       <AvatarFallback className="rounded-full">

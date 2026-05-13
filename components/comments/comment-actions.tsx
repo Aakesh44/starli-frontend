@@ -6,6 +6,8 @@ import { SimpleDropDownMenu } from '../ui/dropdown-menu';
 import CommentExtraActionsDropdown from './comment-extra-actions-dropdown';
 import CommentForm from './comment-form';
 import { Comment } from '@/types/comment';
+import { cn } from '@/lib/utils';
+import useToogleCommentLike from '@/hooks/comment/useToggleCommentLike';
 
 interface CommentActionsProps {
     comment: Comment,
@@ -14,14 +16,15 @@ interface CommentActionsProps {
 
 const CommentActions = ({ comment, type = "COMMENT" }: CommentActionsProps) => {
 
-    console.log(' ⚠️ comment in actions', comment);
     const [showForm, setShowForm] = useState(false);
+
+    const { mutate: toggleLike, isPending } = useToogleCommentLike(comment.id, type);
 
     return (
         <>
             <div className='w-full h-8 text-xs font-medium flex items-center justify-start gap-4 bg-red-3000'>
 
-                <button className='p-1 px-2 rounded-md hover:bg-border/80'>
+                <button onClick={() => toggleLike(comment.liked)} className={cn('p-1 px-2 rounded-md', comment.liked ? 'bg-green-100 text-green-700' : 'hover:bg-border/80')}>
                     Like • {comment.counts.likes}
                 </button>
 

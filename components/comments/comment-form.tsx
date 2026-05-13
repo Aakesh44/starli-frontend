@@ -14,6 +14,7 @@ import commentApi, { CommentTargetType } from '@/lib/api/comment-api';
 import { Editor } from '@tiptap/react';
 import { useCreateComment } from '@/hooks/comment/use-create-comment';
 import { useCreateCommentReply } from '@/hooks/comment/use-reply-comment';
+import { toast } from 'sonner';
 
 type CommentFormProps = {
     targetId?: string,
@@ -57,13 +58,20 @@ const CommentForm = ({ targetId, targetType, parentId, commentType, className, o
 
         let res;
 
+        if (!text) {
+            toast.error('Comment cannot be empty');
+            return;
+        }
+
         if (commentType === 'COMMENT') {
 
             if (!targetId || !targetType) return;
 
+            console.log('Creating comment with content:', text, 'and file:', file, 'for targetId:', targetId, 'and targetType:', targetType);
+
             res = handleCreateComment({
                 content: text,
-                media: file ? [file] : [],
+                media: file ? file : null
             });
         }
         else {
@@ -74,7 +82,7 @@ const CommentForm = ({ targetId, targetType, parentId, commentType, className, o
 
             res = handleCreateReply({
                 content: text,
-                media: file ? [file] : [],
+                media: file ? file : null
             });
 
         }

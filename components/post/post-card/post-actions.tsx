@@ -1,11 +1,13 @@
 import React from 'react';
 import { Button } from '../../ui/button';
-import { ArrowBigUp, Bookmark, EllipsisVertical, MessageSquareText, RefreshCw } from 'lucide-react';
+import { ArrowBigUp, Bookmark, BookMarked, EllipsisVertical, MessageSquareText, RefreshCw } from 'lucide-react';
 import { SimpleDropDownMenu } from '../../ui/dropdown-menu';
 import PostExtraActionsDropdown from './post-extra-actions-dropdown';
 import { Post } from '@/types/post';
 import useToggleLike from '@/hooks/posts/useToggleLike';
 import { cn } from '@/lib/utils';
+import bookmarkApi from '@/lib/api/bookmark-api';
+import useToggleBookmark from '@/hooks/bookmarks/useToggleBookmark';
 
 type Props = {
     post: Post
@@ -14,11 +16,14 @@ const PostActions = ({
     post
 }: Props) => {
 
-    const { counts, liked } = post;
-    const { mutate: toggleLike, isPending } = useToggleLike(post.id);
+    const { counts, liked, bookmarked } = post;
+    const { mutate: toggleLike } = useToggleLike(post.id);
+    const { mutate: toggleBookmark } = useToggleBookmark(post.id);
 
     return (
-        <div className='w-full h-10 flex items-center justify-between bg-lime-3000'>
+        <div
+            onClick={(e) => e.stopPropagation()}
+            className='w-full h-10 flex items-center justify-between bg-lime-3000'>
 
             <div className='h-full w-fit flex items-center justify-start gap-8'>
 
@@ -42,7 +47,7 @@ const PostActions = ({
 
                 <Button onClick={() => toggleLike(liked)} variant={"ghost"} size={"icon-xxs"} className='group-hover:bg-white hover:bg-white hover:border-transparent hover:shadow-none group/icon'>
                     <span className={cn('p-1 rounded-md ', liked ? 'bg-green-100 text-green-700' : 'group-hover/icon:bg-green-100 group-hover/icon:text-green-700')}>
-                        <ArrowBigUp className='group-hover/icon:pb-px transition-all duration-300' />
+                        <ArrowBigUp className='group-hover/icon:scale-90 transition-all duration-300' />
                     </span>
                     <span>
                         {counts.likes}
@@ -52,17 +57,18 @@ const PostActions = ({
 
             <div className='w-fit h-full flex items-center justify-start gap-5'>
 
-                <Button variant={"ghost"} size={"icon-xxs"} className='group-hover:bg-white hover:border-transparent hover:shadow-none hover:bg-rose-50 hover:text-rose-700'>
+                <Button onClick={() => toggleBookmark(bookmarked)} variant={bookmarked ? 'ghost_no_hover' : "ghost"} size={"icon-xxs"} className={cn(bookmarked ? 'bg-rose-50 text-rose-700' : 'group-hover:bg-white. hover:border-transparent. hover:shadow-none. hover:bg-rose-50. hover:text-rose-700.')}>
                     <Bookmark />
                 </Button>
 
-                <SimpleDropDownMenu menuContent={<PostExtraActionsDropdown />}>
+                <SimpleDropDownMenu menuContent={<PostExtraActionsDropdown postId={post.id} />}>
 
                     <Button variant={"ghost"} size={"icon-xxs"} className='group-hover:bg-white'>
                         <EllipsisVertical />
                     </Button>
 
                 </SimpleDropDownMenu>
+
             </div>
 
         </div>

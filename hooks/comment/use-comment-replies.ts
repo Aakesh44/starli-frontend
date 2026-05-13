@@ -16,8 +16,11 @@ export const useCommentReplies = ({
     const query = useInfiniteQuery({
         queryKey: commentKeys.replies(parentId, limit),
         queryFn: async ({ pageParam }: { pageParam?: string }) => {
+
             const result = await commentApi.getReplies({
                 commentId: parentId,
+                cursor: pageParam,
+                limit
             });
 
             return result;

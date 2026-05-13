@@ -1,14 +1,15 @@
 "use client";
 import CommentForm from '@/components/comments/comment-form';
 import CommentList from '@/components/comments/comment-list';
-import LikeList from '@/components/likes/like-list';
 import PostCard from '@/components/post//post-card/post-card';
+import PostCardSkeleton from '@/components/post/post-card/post-card-skeleton';
 import { Button } from '@/components/ui/button';
 import { useComments } from '@/hooks/comment/use-comments';
 import { usePost } from '@/hooks/posts/usePost';
 import { cn } from '@/lib/utils';
 import { Post } from '@/types/post';
 import React, { use, useState } from 'react';
+import UsersList from '@/components/users/users-list';
 
 const options = ["COMMENTS", "UPVOTES"] as const;
 
@@ -21,7 +22,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 
     const { data, isLoading } = usePost(postId);
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <PostCardSkeleton />;
 
     if (!data) return <div>Post not found</div>;
 
@@ -60,9 +61,14 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
                 <CommentList
                     targetId={data.post.id}
                     targetType='POST'
+                    view='default'
                     className='p-5'
                 /> :
-                <LikeList />
+                <UsersList
+                    targetId={data.post.id}
+                    targetType='POST'
+                    view='default'
+                />
             }
 
 

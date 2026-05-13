@@ -7,15 +7,20 @@ import CommentActions from './comment-actions';
 import { Comment } from '@/types/comment';
 import CommentReplies from './comment-replies';
 
-const CommentItem = ({ comment, type = "COMMENT" }: {
+const CommentItem = ({ comment, type = "COMMENT", view }: {
     comment: Comment,
-    type?: "COMMENT" | "REPLY"
+    type?: "COMMENT" | "REPLY",
+    view?: 'default' | 'compact';
 }) => {
 
     const { author, content, media, createdAt } = comment;
 
+    if (media.length) {
+        console.log('media', media);
+    }
+
     return (
-        <div className='w-full h-fit flex items-start justify-start gap-2 bg-amber-3000'>
+        <div onClick={(e) => e.stopPropagation()} className='w-full h-fit flex items-start justify-start gap-2 bg-amber-3000'>
 
             <ProfileImageAvatar
                 src={author.picture}
@@ -26,14 +31,14 @@ const CommentItem = ({ comment, type = "COMMENT" }: {
 
             <div className='w-full h-fit space-y-2 bg-cyan-3000'>
                 <CommentUser
-                    authorName={author.name}
+                    author={author}
                     createdAt={createdAt}
                     isAuthor={false}
                 />
                 <CommentContent content={content} />
                 <CommentMedia media={media} />
                 <CommentActions comment={comment} type={type} />
-                {type === "COMMENT" && <CommentReplies comment={comment} />}
+                {type === "COMMENT" && <CommentReplies comment={comment} view={view} />}
             </div>
 
             {/* <CommentItem /> */}

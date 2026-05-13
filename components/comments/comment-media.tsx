@@ -1,24 +1,22 @@
 import Image from 'next/image';
 import React from 'react';
 import sampleImage from '../../public/images/sample.jpg'
+import { Comment } from '@/types/comment';
 
-interface CommentMediaProps {
-    media: string
-}
 
-const CommentMedia = ({ media }: CommentMediaProps) => {
+const CommentMedia = ({ media }: Pick<Comment, 'media'>) => {
 
-    if (media) return null;
+    if (!media?.[0]?.url) return null;
 
     return (
-        <div className='relative w-52 h-auto grid grid-cols-1  overflow-hidden'>
+        <div className='relative w-52 aspect-video grid grid-cols-1 bg-amber-3000 overflow-hidden'>
             <div className='relative '>
                 <Image
-                    src={sampleImage}
+                    src={media?.[0]?.url || sampleImage}
                     alt='image'
-                    // fill
+                    fill
                     quality={80}
-                    className='w-full h-full min-h-16 max-h-96 object-cover border border-border rounded-xl '
+                    className='w-full h-full min-h-16 max-h-96 object-scale-down border border-border rounded-xl '
                 />
 
             </div>

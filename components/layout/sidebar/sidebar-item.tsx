@@ -1,6 +1,7 @@
 import { buttonVariants } from '@/components/ui/button';
 import { SimpleTooltip } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
+import { useOpenNewPostForm } from '@/stores/useOpenNewPostForm';
 import { useSidebarStore } from '@/stores/useSidebarStore';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -10,11 +11,13 @@ export type SidebarItemProps = {
     label: string;
     icon: React.ReactNode;
     href?: string;
+    onClickAction?: string;
 } & {} & React.ComponentProps<'li'>;
 
-const SidebarItem = ({ label, href, icon, children, className }: SidebarItemProps) => {
+const SidebarItem = ({ label, href, onClickAction, icon, className }: SidebarItemProps) => {
 
     const isSidebarOpen = useSidebarStore((state) => state.isOpen);
+    const { openForm } = useOpenNewPostForm();
 
     const pathname = usePathname();
 
@@ -32,9 +35,22 @@ const SidebarItem = ({ label, href, icon, children, className }: SidebarItemProp
         >
             <SimpleTooltip content={label} hidden={isSidebarOpen}>
 
-                {children ? (
-                    children
-                ) : (
+                {onClickAction === 'OPEN_CREATE_POST_FORM' ? (
+                    <button
+                        onClick={() => openForm()}
+                        className="flex h-full w-full items-center justify-start gap-1.5 group-hover:gap-2 transition-all duration-200 focus-visible:ring-ring/50 focus-visible:ring-[2px] rounded-md overflow-hidden cursor-pointer"
+                    >
+                        <span className={cn(
+                            // buttonVariants({ variant: 'ghost', size: 'icon-sm', className: 'hover:text' }),
+                            "px-2. bg-rose-4000 h-full aspect-square grid place-items-center text-3xl stroke-2 group-hover:scale-[1.01].",
+                        )}
+                        >
+                            {icon}
+                        </span>
+
+                        <p className={cn('font-medium leading-[100%]. truncate', isSidebarOpen === false ? 'hidden' : '')}>{label}</p>
+                    </button>
+                ) :
                     <Link
                         href={href ? href : '#'}
                         className="flex h-full w-full items-center justify-start gap-1.5 group-hover:gap-2 transition-all duration-200 focus-visible:ring-ring/50 focus-visible:ring-[2px] rounded-md overflow-hidden"
@@ -49,7 +65,8 @@ const SidebarItem = ({ label, href, icon, children, className }: SidebarItemProp
 
                         <p className={cn('font-medium leading-[100%]. truncate', isSidebarOpen === false ? 'hidden' : '')}>{label}</p>
                     </Link>
-                )}
+                }
+
             </SimpleTooltip>
         </li>
     );

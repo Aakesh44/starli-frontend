@@ -9,8 +9,10 @@ interface UseCommentsParams {
 };
 
 export const commentKeys = {
+    lists: () => ['comments'] as const,
     list: (targetType: string, targetId: string, limit: number) =>
         ['comments', targetType, targetId, { limit }] as const,
+    replyLists: () => ['comments', 'replies'] as const,
     replies: (parentId: string, limit: number) =>
         ['comments', 'replies', parentId, { limit }] as const,
 };

@@ -15,7 +15,7 @@ interface UseCreateCommentReplyOptions {
 
 interface CreateReplyPayload {
     content: string;
-    media: File[];
+    media: File | null;
 }
 
 export const useCreateCommentReply = ({

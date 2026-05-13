@@ -1,4 +1,5 @@
 import { ISOString } from "./common";
+import { IMedia } from "./media";
 
 export interface IUser extends User {
     email: string;
@@ -12,9 +13,9 @@ export interface User {
     email: string;
     name: string;
     username: string;
-    picture: string;
+    picture: IMedia | null;
     bio: null,
-    cover_picture: null,
+    cover_picture: IMedia | null,
     location: string | null,
     personal_website: string | null,
     profile_tags: string[] | null,
@@ -22,4 +23,12 @@ export interface User {
     createdAt: ISOString,
     updatedAt: ISOString
 
+    following: boolean;
+    follower: boolean;
+
+    followings?: User[];
+    followers?: User[];
+
+    posts?: number;
 }
+

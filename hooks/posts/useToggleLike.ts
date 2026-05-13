@@ -2,6 +2,7 @@ import { postApi } from '@/lib/api/post-api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postsKeys } from './useInfinitePosts';
 import { Post } from '@/types/post';
+import { likedPostsKeys } from '../reactions/useInfiniteLikedPosts';
 
 const useToggleLike = (postId: string) => {
 
@@ -18,7 +19,7 @@ const useToggleLike = (postId: string) => {
             await queryClient.cancelQueries();
 
             const prevSingle = queryClient.getQueryData(['post', postId]);
-            const prevList = queryClient.getQueryData(postsKeys.all);
+            const prevList = queryClient.getQueriesData({ queryKey: postsKeys.lists() });
 
             // Optimistically update the single post data
             queryClient.setQueryData(['post', postId], (oldData: { post: Post }) => {
@@ -64,6 +65,33 @@ const useToggleLike = (postId: string) => {
                     };
                 });
 
+            // Optimistically update the post in the liked posts list
+            queryClient.setQueriesData(
+                { queryKey: likedPostsKeys.lists() },
+                (oldData: any) => {
+                    if (!oldData) return oldData;
+                    console.log('🟢Old liked posts list data:', oldData)
+                    return {
+                        ...oldData,
+                        pages: oldData.pages.map((page: any) => ({
+                            ...page,
+                            posts: page.posts.map((post: Post) => {
+                                if (post.id === postId) {
+                                    return {
+                                        ...post,
+                                        liked: !post.liked,
+                                        counts: {
+                                            ...post.counts,
+                                            likes: post.liked ? post.counts.likes - 1 : post.counts.likes + 1,
+                                        }
+                                    }
+                                }
+                                return post;
+                            })
+                        }))
+                    };
+                });
+
             return { prevSingle, prevList };
 
         },
@@ -73,7 +101,7 @@ const useToggleLike = (postId: string) => {
                 queryClient.setQueryData(['post', postId], context.prevSingle);
             }
             if (context?.prevList) {
-                queryClient.setQueryData(postsKeys.all, context.prevList);
+                queryClient.setQueriesData({ queryKey: postsKeys.lists() }, context.prevList);
             }
         },
         // onSettled: () => {
