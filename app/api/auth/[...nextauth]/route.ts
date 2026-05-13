@@ -7,6 +7,9 @@ import authApi from '@/lib/api/auth-api';
 import { toast } from 'sonner';
 
 export const authOptions: NextAuthOptions = {
+    session: {
+        strategy: 'jwt',
+    },
     providers: [
         // 🟢 google OAtuth Provider
         GoogleProvider({
