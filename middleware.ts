@@ -6,6 +6,8 @@ export const config = {
         '/scroll/post/:path*',
         '/user/:path*',
         '/bookmarks',
-        '/liked-posts'
+        '/liked-posts',
+        "/((?!login|api/auth|_next/static|_next/image|favicon.ico).*)",
+
     ]
 }
