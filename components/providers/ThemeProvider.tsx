@@ -5,7 +5,7 @@ const ThemeProvider = ({ children, ...props }: ThemeProviderProps) => {
     return (
         <NextThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
             {...props}
