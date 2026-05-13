@@ -23,7 +23,7 @@ const CommentItem = ({ comment, type = "COMMENT", view }: {
         <div onClick={(e) => e.stopPropagation()} className='w-full h-fit flex items-start justify-start gap-2 bg-amber-3000'>
 
             <ProfileImageAvatar
-                src={author.picture}
+                src={author.picture?.url ?? ''}
                 alt='profile'
                 fallback='A'
                 className='size-9'
