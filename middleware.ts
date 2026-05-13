@@ -9,25 +9,31 @@ const publicRoutes = [
     '/reset-password',
 ];
 
-export default withAuth(
-    function middleware(req) {
-        const pathname = req.nextUrl.pathname;
-
-        const isPublic = publicRoutes.some(route =>
-            pathname.startsWith(route)
-        );
-
-        if (isPublic) {
-            return NextResponse.next();
-        }
+export default withAuth({
+    pages: {
+        signIn: '/login',
     },
-    {
-        pages: {
-            signIn: '/login',
+    callbacks: {
+        authorized: ({ token, req }) => {
+            const pathname = req.nextUrl.pathname;
+
+            // Allow public routes
+            const isPublicRoute = publicRoutes.some(route =>
+                pathname.startsWith(route)
+            );
+
+            if (isPublicRoute) {
+                return true;
+            }
+
+            // Protect everything else
+            return !!token;
         },
-    }
-);
+    },
+});
 
 export const config = {
-    matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+    matcher: [
+        '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    ],
 };
