@@ -87,8 +87,6 @@ export const authOptions: NextAuthOptions = {
 
                     console.log('Authorization error', error);
 
-                    toast.error(error?.response?.data?.message);
-
                     const { code, token } = error?.response?.data;
 
                     if (code === 'NOT_VERIFIED' && token) {
