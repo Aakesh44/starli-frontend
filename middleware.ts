@@ -1,19 +1,33 @@
 import { withAuth } from 'next-auth/middleware';
+import { NextResponse } from 'next/server';
 
-export default withAuth({
-    pages: {
-        signIn: '/login',   // ← must match authOptions.pages.signIn
+const publicRoutes = [
+    '/login',
+    '/signup',
+    '/email-verify',
+    '/forgot-password',
+    '/reset-password',
+];
+
+export default withAuth(
+    function middleware(req) {
+        const pathname = req.nextUrl.pathname;
+
+        const isPublic = publicRoutes.some(route =>
+            pathname.startsWith(route)
+        );
+
+        if (isPublic) {
+            return NextResponse.next();
+        }
     },
-});
-
+    {
+        pages: {
+            signIn: '/login',
+        },
+    }
+);
 
 export const config = {
-    matcher: [
-        // '/scroll',
-        // '/scroll/post/:path*',
-        // '/user/:path*',
-        // '/bookmarks',
-        // '/liked-posts',
-        '/((?!login|signup|api/auth|_next/static|_next/image|favicon.ico).*)',
-    ]
-}
+    matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+};
